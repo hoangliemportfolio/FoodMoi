@@ -45,54 +45,34 @@
 
 
 
-        <!--Category----------------------------------------------------->
-
-        <div class="row fixed-top">
-            <div class="col-12 category-container">
-                <ul id="category">
-                </ul>
-            </div>
-        </div>
-
-
-
 
         <!--Body trang chủ----------------------------------------------------->
 
         <div class="row home-body">
-            <div class="col-12 title-container">
-                <p class="body-title">MÓN PHỔ BIẾN</p>
+            <div class="col-4">
+                <main class="form-signin">
+                    <form  id="submit">
+                      <h1 class="h3 mb-3 fw-normal signin-title">Đăng nhập</h1>
+                  
+                      <div class="form-floating">
+                        <input type="email" class="form-control" id="floatingInput" name="username" placeholder="name@example.com">
+                        <label for="floatingInput">Email address</label>
+                      </div>
+                      <div class="form-floating">
+                        <input type="password" class="form-control" id="floatingPassword" name="password" placeholder="Password">
+                        <label for="floatingPassword">Password</label>
+                      </div>
+                  
+                      <div class="checkbox mb-3">
+                        <label  class="remember-check">
+                          <input type="checkbox" value="remember-me"> Lưu tài khoản
+                        </label>
+                      </div>
+                      <button class="w-100 btn btn-lg btn-primary" type="submit">Đăng nhập</button>
+                      <p class="mt-5 mb-3 text-muted">© 2021–2022</p>
+                    </form>
+                  </main>
             </div>
-            <div class="row" id="card-container">
-            </div>
-        </div>
-
-
-
-
-        <!--Phân trang----------------------------------------------------->
-
-        <div class="row">
-            <div class="col pagination-container">
-                <ul class="pagination">
-                    <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Previous" id="previous">
-                            <span aria-hidden="true">&laquo;</span>
-                        </a>
-                    </li>
-                    <li class="page-item"><a class="page-link border-1" href="#" id="page1">1</a></li>
-                    <li class="page-item"><a class="page-link border-1" href="#" id="page2">2</a></li>
-                    <li class="page-item"><a class="page-link border-1" href="#" id="page3">3</a></li>
-                    <li class="page-item"><a class="page-link border-1" id="page4">...</a></li>
-
-                    <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Next" id="next">
-                            <span aria-hidden="true">&raquo;</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-
         </div>
 
 
@@ -185,165 +165,13 @@
 
 <script>
 
-    // Tạo danh mục ----------------------------------------------------------
-
-    $.getJSON('https://freeapi.code4func.com/api/v1/cate/list', function (data) {
-        var category = '';
-        for (i = 0; i < 8; i++) {
-            category += `<li>
-                             <a class='huhu' href='https://freeapi.code4func.com/api/v1/cate/food/${data.data[i].cateId}/0/12'>${data.data[i].cateName}</a>
-                        </li>`
-        }
-        $('#category').html(category);  
-    });
-
+ 
     var huhu = $('.user-icon')
     huhu.click(function(){
         window.location.href = 'sign_in.html'
     })
 
 
-
-
-
-    // Tạo card trang chủ ---------------------------------------------------
-
-    $.getJSON('https://freeapi.code4func.com/api/v1/food/list/0/12', function (data) {
-        var card = '';
-        for (i = 0; i < data.data.length; i++) {
-            card += ` <div class="col-3 card-margin">
-                        <div class="card">
-                            <img src=${data.data[i].images[0].imageUrl} class="card-img-top">
-                            <div class="card-body">
-                                <h5 class="card-title">${data.data[i].foodName}</h5>
-                                <p class="card-des">${data.data[i].description}</p>
-                            </div>
-                            <p class="card-price">${'Giá:  ' + data.data[i].price}</p>
-                        </div>
-                     </div>`
-        }
-        $('#card-container').html(card);
-        
-    });
-
-
-
-
-
-    // Phân trang ----------------------------------------------------------------------------------
-
-    // Hàm tạo card ----------------------------------------------------------
-    var createCard = function (date) {
-        $.getJSON(date, function (data) {
-            let card = '';
-            for (i = 0; i < data.data.length; i++) {
-                card += ` <div class="col-3 card-margin">
-                <div class="card">
-                    <img src=${data.data[i].images[0].imageUrl} class="card-img-top">
-                    <div class="card-body">
-                        <h5 class="card-title">${data.data[i].foodName}</h5>
-                        <p class="card-des">${data.data[i].description}</p>
-                    </div>
-                    <p class="card-price">${'Giá:  ' + data.data[i].price}</p>
-                </div>
-             </div>`
-            }
-
-
-            $('#card-container').html(card);
-        });
-    }
-
-
-
-
-
-
-    $.getJSON('https://freeapi.code4func.com/api/v1/food/list/0/1200', function (data) {
-
-
-        // Load trang 1 ---------------------------
-
-        var itemInPage = 0;
-        $("#page1").click(function () {
-            itemInPage = 0;
-            console.log(itemInPage)
-
-            let date = `https://freeapi.code4func.com/api/v1/food/list/0/12`
-            // Load trang 1 cũng như trang chủ nên .../list/0/12
-            createCard(date)
-        });
-
-
-
-        // Load trang 2 ---------------------------
-
-        $("#page2").click(function () {
-            itemInPage = 11;
-            console.log(itemInPage)
-
-            let date = `https://freeapi.code4func.com/api/v1/food/list/${data.data[itemInPage].updatedAt}/12`
-            // Thay vì đánh mã date thì gán số rồi get về gắn vào link
-            createCard(date);
-        });
-
-
-
-        // Load trang 3 ---------------------------
-
-        $("#page3").click(function () {
-            itemInPage = 23;
-            console.log(itemInPage)
-            let date = `https://freeapi.code4func.com/api/v1/food/list/${data.data[itemInPage].updatedAt}/12`
-
-            createCard(date);
-        });
-
-
-
-
-        // Load trang next---------------------------
-        $("#next").click(function () {
-
-            if (itemInPage == 0) {
-                itemInPage += 11;
-            }
-            else {
-                itemInPage += 12;
-            }
-            console.log(itemInPage)
-            let date = `https://freeapi.code4func.com/api/v1/food/list/${data.data[itemInPage].updatedAt}/12`
-
-            createCard(date);
-        });
-
-
-
-
-        // Load trang previous---------------------------
-
-        $("#previous").click(function () {
-            if (itemInPage == 11) {
-                itemInPage -= 11;
-                console.log(itemInPage)
-                let date = `https://freeapi.code4func.com/api/v1/food/list/0/12`
-
-                createCard(date);
-            }
-            else {
-                itemInPage -= 12;
-                console.log(itemInPage)
-                let date = `https://freeapi.code4func.com/api/v1/food/list/${data.data[itemInPage].updatedAt}/12`
-
-
-                createCard(date);
-            }
-
-        });
-
-
-
-    }); /*getjson*/
 
 
 
@@ -430,7 +258,35 @@
 
 
 
+    // Submit đăng nhập
 
+    $(function () {
+        $('#submit').attr('onsubmit', 'return false');
+    });
+
+    $('#submit').submit(function(){
+        
+        var username = $('#floatingInput').val().trim()
+        var password = $('#floatingPassword').val().trim()
+        console.log("Email: " + username)
+        console.log("Password: " + password)
+
+        if(username != '' && password != ''){
+
+            $.ajax({
+                url:'https://freeapi.code4func.com/api/v1/user/sign-in',
+                type:'post',
+                data:{email:username, password:password},
+                // async:true,
+                success: function(response){
+                    console.log("được gòi nè")
+                },
+                error: function(response){
+                    console.log('sai')
+                }
+            })
+        }
+    })
 
 
 

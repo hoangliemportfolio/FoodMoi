@@ -19,9 +19,6 @@ body {
     background-color: rgb(37, 37, 37);
 }
 
-.row {
-    justify-content: space-around;
-}
 
 
 
@@ -73,6 +70,7 @@ body {
     position: absolute;
     margin-right: 20px;
     color: rgb(221, 221, 221);
+    cursor: pointer;
 
 }
 
@@ -86,6 +84,11 @@ body {
     color: rgb(221, 221, 221);
     font-size: 1.3rem;
     margin: 0 0px 0 70px;
+    cursor: pointer;
+}
+
+.user-icon:hover, .cart-icon:hover {
+    color: rgb(156, 156, 156);
 }
 
 
@@ -103,7 +106,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 150px;
+    padding: 0 210px;
     list-style: none;
     margin-bottom: unset !important;
 
@@ -123,10 +126,13 @@ body {
 
 .home-body {
     margin-top: 200px;
+    justify-content: space-around; 
+
 }
 
+
 .body-title {
-    color: rgb(117, 246, 255);
+    color: rgb(117, 246, 255) !important;
     font-size: 1.2rem;
 }
 
@@ -171,9 +177,8 @@ body {
 }
 
 .card-price {
-    color: rgb(223, 223, 223);
-    margin: auto auto 15px auto;
-  
+    color: rgb(219, 213, 118);
+    margin: auto auto 15px auto;  
 }
 
 .card-margin {
@@ -220,7 +225,7 @@ body {
   margin-top: 100px !important;
 }
 
-.h5, h5  {
+.title-footer  {
     color: rgb(224, 224, 224) !important;
 }
 
@@ -231,4 +236,20 @@ body {
 
 .logo-footer {
     width: 150px;
+}
+
+
+
+/* Sign in ----------------------------------------------------------*/
+.form-signin form {
+    text-align: center;
+}
+
+.signin-title {
+    color: white;
+}
+
+.remember-check {
+    color: whitesmoke;
+    margin: 20px 0 10px 0;
 }
