@@ -191,14 +191,18 @@
         var category = '';
         for (i = 0; i < 8; i++) {
             category += `<li>
-                             <a class='huhu' href='https://freeapi.code4func.com/api/v1/cate/food/${data.data[i].cateId}/0/12'>${data.data[i].cateName}</a>
+                             <a href='https://freeapi.code4func.com/api/v1/cate/food/${data.data[i].cateId}/0/12'>${data.data[i].cateName}</a>
                         </li>`
         }
         $('#category').html(category);  
     });
 
-    var huhu = $('.user-icon')
-    huhu.click(function(){
+
+
+
+    // Chuyển trang đăng nhập---------------------------------------------
+    var signInPage = $('.user-icon')
+    signInPage.click(function(){
         window.location.href = 'sign_in.html'
     })
 
