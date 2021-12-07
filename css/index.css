@@ -80,14 +80,14 @@ body {
     justify-content: flex-end;
 }
 
-.user-icon, .cart-icon {
+.user-icon, .cart-icon, .sign-icon {
     color: rgb(221, 221, 221);
     font-size: 1.3rem;
     margin: 0 0px 0 70px;
     cursor: pointer;
 }
 
-.user-icon:hover, .cart-icon:hover {
+.user-icon:hover, .cart-icon:hover, .sign-icon:hover {
     color: rgb(156, 156, 156);
 }
 
@@ -241,6 +241,16 @@ body {
 
 
 /* Sign in ----------------------------------------------------------*/
+.home-body1 {
+    margin-top: 150px;
+    justify-content: space-around; 
+
+}
+
+.form-signup form {
+    text-align: center;
+}
+
 .form-signin form {
     text-align: center;
 }
@@ -252,4 +262,38 @@ body {
 .remember-check {
     color: whitesmoke;
     margin: 20px 0 10px 0;
+}
+
+.form-floating {
+    margin-bottom: 9px;
+}
+
+.mt-5.mb-3.text-muted {
+    margin: 40px 0 0 0 !important;
+    display: block;
+    text-decoration: none;
+}
+
+.my_btn {
+    margin-top: 14px !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+#my-message {
+    color: rgb(249, 255, 158);
+}
+
+
+
+
+/* User Profile --------------------------------------------------------------*/
+
+.user-profile p{
+    color: white;
+}
+
+.user-profile h2{
+    color: rgb(238, 255, 1);
+    margin-bottom: 60px;
 }
