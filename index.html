@@ -23,10 +23,10 @@
         <div class="row">
             <nav class="navbar fixed-top">
                 <div class="container-fluid">
-                    <div class="col-2">
+                    <div class="col-lg-2 col-md-2 col-sm-2">
                         <a href="./index.html"><img src="./img/logo.png" class="logo" alt=""></a>
                     </div>
-                    <div class="col-6 search-container">
+                    <div class="col-lg-6 col-md-6 col-sm-10 search-container">
                         <form action="" autocomplete="off" id="hehe">
                             <input type="search" id="search-input" name="foodName" class="search"
                                 placeholder="Nhập để tìm kiếm..." spellcheck="false">
@@ -35,7 +35,7 @@
                         <i class="fas fa-search search-icon"></i>
 
                     </div>
-                    <div class="col-4 user-section">
+                    <div class="col-lg-4 col-md-4 col-sm-2 user-section">
                
                         <i class="fas fa-user sign-icon" title="sign in/sign up"></i>
                         <i class="fas fa-shopping-cart cart-icon" title="your cart"></i>
@@ -224,7 +224,7 @@
     $.getJSON('https://freeapi.code4func.com/api/v1/food/list/0/12', function (data) {
         var card = '';
         for (i = 0; i < data.data.length; i++) {
-            card += ` <div class="col-3 card-margin">
+            card += ` <div class="card-margin col-lg-3 col-md-4 col-md-2">
                         <div class="card">
                             <img src=${data.data[i].images[0].imageUrl} class="card-img-top">
                             <div class="card-body">
@@ -257,7 +257,7 @@
         $.getJSON(date, function (data) {
             let card = '';
             for (i = 0; i < data.data.length; i++) {
-                card += ` <div class="col-3 card-margin">
+                card += ` <div class="card-margin col-lg-3 col-md-4 col-md-2">
                 <div class="card">
                     <img src=${data.data[i].images[0].imageUrl} class="card-img-top">
                     <div class="card-body">
