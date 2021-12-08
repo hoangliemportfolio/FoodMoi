@@ -46,30 +46,12 @@
         <!--Body trang chủ----------------------------------------------------->
 
         <div class="row home-body1">
-            <div class="col-4 user-profile">
-                <main class="form-signin">
-                    <form id="submit-signin">
-                        <h1 class="h3 mb-3 fw-normal signin-title">Đăng nhập</h1>
-
-
-                        <div class="form-floating">
-                            <input type="email" class="form-control" id="floatingEmail" name="email" placeholder="123">
-                            <label for="floatingEmail">Email</label>
-                        </div>
-
-                        <div class="form-floating">
-                            <input type="password" class="form-control" id="floatingPassword" name="password"
-                                placeholder="123">
-                            <label for="floatingPassword">Mật khẩu</label>
-                        </div>
-                        <span id="my-message"></span>
-
-                      
-
-                        <button class="w-100 btn btn-lg btn-primary" type="submit">Đăng nhập</button>
-                        <a href="sign_up.html" class="mt-5 mb-3 text-muted">Đăng ký</a>
-                    </form>
-                </main>
+            <div class="col-4 cart-container">
+                <h2 class="cart-title">GIỎ HÀNG</h2>
+                <div id="cart-notice">
+                    <p>Tình trạng: đang bảo trì</p>
+                   <span>Thời gian bảo trì dự kiến: </span> <span id="cart-container"></span>
+                </div>
             </div>
         </div>
 
@@ -178,119 +160,34 @@
         window.location.href = 'cart.html'
     })
 
-    // Đăng ký ----------------------------------------------------------------------------------
-
-    //Tắt cái submit
-    $(function () {
-        $('#submit-signin').attr('onsubmit', 'return false');
-    });
+    //  ----------------------------------------------------------------------------------
 
 
+    var countDownDate = new Date("Jan 5, 2022 15:37:25").getTime();
+    var x = setInterval(function() {
 
-    $('#submit-signin').submit(function () {
+    // Get today's date and time
+    var now = new Date().getTime();
 
-        // Lấy input
-        var useremail = $('#floatingEmail').val().trim();
-        var userpassword = $('#floatingPassword').val().trim();
+    // Find the distance between now and the count down date
+    var distance = countDownDate - now;
 
+    // Time calculations for days, hours, minutes and seconds
+    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-        // Console
-        console.log("Email: " + useremail)
-        console.log("Mật khẩu: " + userpassword)
+    // Display the result in the element with id="demo"
+    document.getElementById("cart-container").innerHTML = days + "d " + hours + "h "
+    + minutes + "m " + seconds + "s ";
 
-
-        // Post đăng nhập
-
-        if (useremail != '' && userpassword != '') {
-
-
-            $.ajax({
-                url: 'https://freeapi.code4func.com/api/v1/user/sign-in',
-                type: 'post',
-                data: `{
-                    "email" : "${useremail}",
-                    "password" : "${userpassword}"
-                }`,
-                async: false,
-                
-                success: function (response) {
-                    console.log("Đăng nhập thành công!")
-                    console.log(response)
-                    $('#my-message').html('');
-                    var token = response.data.token;
-                    console.log(token)
-                                                                         // localStorage.setItem("token", token) 
-                    $('.home-body1').html(''); // Xoá trang đăng nhập
-                    userProfile(token); // Chạy hàm lấy profile
-                },
-
-                error: function (response) {
-                    console.log(response.responseJSON);
-                    $('#my-message').html(response.responseJSON.message);
-
-                }
-            })
-        }
-
-
-        // Hàm lấy user profile ----------------------
-        function userProfile(token) {
-            $.ajax({
-                url: 'https://freeapi.code4func.com/api/v1/user/profile',
-                type: 'get',
-                headers: {
-                    'authorization': `Bearer ${token}`,
-                    'accept': 'application/json',
-                    'content-type': 'application/json',
-                    // 'cache-control': 'no-cache'
-                },
-                crossDomain: true,
-                async: false,
-                success: function (response) {
-                  
-                  var userProfile = `
-                                <div class="col-4 user-profile">
-                                <h2 class="profile_title">USER PROFILE</h2>
-                                <p class="userId">User Id: ${response.data.userId}</p>
-                                <p class="userName">Họ và tên: ${response.data.fullName}</p>
-                                <p class="userEmail">Email: ${response.data.email}</p>
-                                <p class="userPhone">Điện thoại: ${response.data.phone}</p>
-                                <p class="userAddress">Địa chỉ: ${response.data.address}</p>
-                                <p class="userAccount">Ngày tạo tài khoản: ${response.data.createdAt}</p>
-                                <button class=" btn btn-primary my_btn" id="updateProfile" type="submit">Sửa thông tin</button>
-                                </div> 
-                                `
-
-
-                                
-                    $('.home-body1').html(userProfile)
-                },
-                error: function (response) {
-                    console.log(response.responseJSON);
-
-
-                }
-            });
-        }
-    })
-
-
-    
-  
-
-    $('#updateProfile').click(function(){
-        console.log('hehe')
-        alert('hehe')
-        
-    })
-  
-
-
-
-
-
-
-
+    // If the count down is finished, write some text
+    if (distance < 0) {
+    clearInterval(x);
+    document.getElementById("cart-container").innerHTML = "EXPIRED";
+    }
+    }, 0);
 
 
 

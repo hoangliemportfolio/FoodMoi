@@ -36,8 +36,8 @@
 
                     </div>
                     <div class="col-4 user-section">
-                        <i class="fas fa-sign-in-alt sign-icon" title="sign in/sign up"></i>
-                        <i class="fas fa-user user-icon" title="user info"></i>
+               
+                        <i class="fas fa-user sign-icon" title="sign in/sign up"></i>
                         <i class="fas fa-shopping-cart cart-icon" title="your cart"></i>
                     </div>
                 </div>
@@ -212,6 +212,10 @@
         window.location.href = 'user_profile.html'
     })
 
+    $('.cart-icon').click(function(){
+        window.location.href = 'cart.html'
+    })
+
 
 
 
@@ -228,15 +232,22 @@
                                 <p class="card-des">${data.data[i].description}</p>
                             </div>
                             <p class="card-price">${'Giá:  ' + data.data[i].price}</p>
+                            <button class=" btn btn-primary my_btn" id="updateProfile" type="submit">Sửa thông tin</button>
+
                         </div>
                      </div>`
+                     
         }
         $('#card-container').html(card);
+        $('#updateProfile').click(function(){
+        alert('hehe')
+    })
+
         
     });
 
 
-
+   
 
 
     // Phân trang ----------------------------------------------------------------------------------

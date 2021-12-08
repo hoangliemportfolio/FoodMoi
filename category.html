@@ -36,9 +36,9 @@
 
                     </div>
                     <div class="col-4 user-section">
-                        <i class="fas fa-sign-in-alt sign-icon" title="sign in/sign up"></i>
+                        <i class="fas fa-user sign-icon" title="sign in/sign up"></i>
 
-                        <i class="fas fa-user user-icon" title="log-in"></i>
+                        <!-- <i class="fas fa-user user-icon" title="user-profile"></i> -->
                         <i class="fas fa-shopping-cart cart-icon" title="your cart"></i>
                     </div>
                 </div>
@@ -161,6 +161,10 @@
 var signInPage = $('.user-icon')
     signInPage.click(function(){
         window.location.href = 'user_profile.html'
+    })
+
+    $('.cart-icon').click(function(){
+        window.location.href = 'cart.html'
     })
 
     // Tạo danh mục ----------------------------------------------------------
