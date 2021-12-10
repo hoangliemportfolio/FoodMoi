@@ -247,6 +247,12 @@ body {
 
 }
 
+.home-body2 {
+    /* margin-top: 150px; */
+    justify-content: space-around; 
+
+}
+
 .form-signup form {
     text-align: center;
 }
@@ -282,6 +288,8 @@ body {
 
 #my-message {
     color: rgb(249, 255, 158);
+    display: block;
+    margin: 10px 0;
 }
 
 
