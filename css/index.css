@@ -36,96 +36,116 @@ body {
 /* Navbar ------------------------------------------------------------------*/
 .navbar {
     background-color: rgb(41, 41, 41);
-    height: 100px;
+    height: 120px;
     border-bottom: 4px solid rgb(184, 184, 77);
     padding: 0 120px;
     z-index: 10000;
 }
 
-.logo {
-    width: 300px;
+.navbar.bg-light {
+    background-color: rgb(41, 41, 41) !important;
 }
 
-.search {
-    max-width: 400px;
-    height: 50px;
-    border-radius: 100px;
-    border: none;
+.navbar-light .navbar-nav .nav-link {
+    color: rgb(209, 209, 209) !important;
+}
+
+.navbar-brand {
+    margin-right: 50px !important;
+}
+
+.form-control.me-2 {
+    border-radius: 100px ;
     outline: none;
-    padding: 0 60px 0 30px;
-    font-size: 1.2rem;
+    border: unset !important;
+    box-shadow: none !important;
     letter-spacing: 1px;
     background-color: rgb(32, 32, 32);
-    box-shadow: inset 0.5px 0.5px 6px black;
+    box-shadow: inset 0.5px 0.5px 6px black !important;
     color: white;
-}
-
-.search-container {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-}
-
-.search-icon {
-    position: absolute;
-    margin-right: 20px;
-    color: rgb(221, 221, 221);
-    cursor: pointer;
+    padding: 0 20px 0 20px !important;
 
 }
 
-.user-section {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
+.navbar-nav .nav-item {
+    margin: 0 10px !important;
 }
 
-.user-icon, .cart-icon, .sign-icon {
-    color: rgb(221, 221, 221);
-    font-size: 1.3rem;
-    margin: 0 0px 0 50px;
-    cursor: pointer;
+.navbar-nav .nav-item a:hover {
+    color: rgb(128, 128, 128) !important;
+    transition: ease-in-out 0.1s;
 }
 
-.user-icon:hover, .cart-icon:hover, .sign-icon:hover {
-    color: rgb(156, 156, 156);
+.btn-outline-success {
+    border-color: transparent !important;
+    box-shadow: none !important;
+    transition: ease-in-out 0.1s;
 }
 
+.navbar.bg-light {
+    margin-top: 0 !important;
+}
 
 
 /* Category --------------------------------------------------------*/
 
-.category-container {
-    background-color: rgb(26, 26, 26);
-    height: 50px;
-    margin-top: 100px;
-    padding-top: 13px;
+.navbar-expand-lg .navbar-nav {
+    margin-left: auto;
 }
 
-#category {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 210px;
-    list-style: none;
-    margin-bottom: unset !important;
-
+.me-auto {
+    margin-right: 30px !important;
 }
 
-#category li a{
+.dropdown-menu li a{
     color: rgb(221, 221, 221) !important;
     text-decoration: none;
     display: block;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+    /* text-transform: uppercase; */
+    letter-spacing: 1px;
+    margin: 10px 0 10px 20px;
+}
+
+.dropdown-menu {
+    background-color: rgb(24, 24, 24) !important;
 }
 
 
+.container-fluid {
+    background-color: rgb(41, 41, 41);
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-radius: 15px;
+}
+
+.navbar-light .navbar-toggler {
+    border-color: transparent !important;
+}
+
+.bars-icon {
+    color: rgb(190, 190, 190);
+}
+
+.navbar-toggler.collapsed {
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+.navbar-toggler {
+    outline: none !important;
+    box-shadow: none !important;
+
+}
 
 /* Body trang chủ -----------------------------------------------------*/
 
+
+.title-container p{
+    text-transform: uppercase;
+
+}
 .home-body {
-    margin-top: 200px;
+    margin-top: 170px;
     justify-content: space-around; 
 
 }
@@ -143,17 +163,21 @@ body {
 
 .card {
     background-color: rgb(24, 24, 24);
-    min-height: 420px;
+    min-height: 450px;
 }
 
 .card-img-top {
     height: 200px;
 }
 
+.img-detail {
+    width: 100%;
+}
+
 .card-title {
     text-transform: uppercase;
     color: rgb(117, 246, 255);
-    font-size: 1rem;
+    /* font-size: 1rem; */
     /* white-space: nowrap; */
     overflow: hidden;
     /* text-overflow: ellipsis; */
@@ -176,10 +200,23 @@ body {
     display: -webkit-box;
 }
 
+.card-des-detail {
+  
+    color: rgb(180, 180, 180);
+    font-size: 1.5rem;
+}
+
 .card-price {
     color: rgb(219, 213, 118);
     margin: auto auto 15px auto;  
 }
+
+.card-price-detail {
+    color: rgb(219, 213, 118);
+    margin: auto auto 15px auto;  
+    font-size: 1.3rem !important;
+}
+
 
 .card-margin {
     margin-bottom: 35px;
@@ -320,4 +357,12 @@ body {
     color: white;
     font-size: 1.5rem;
     /* text-align: center; */
+}
+
+
+/* Chi tiết sản phẩm -------------------------------------------------------------------*/
+
+.cart-detail {
+    text-decoration: none;
+    color: rgb(79, 185, 255);
 }

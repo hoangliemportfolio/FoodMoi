@@ -19,26 +19,27 @@
 <body>
     <div class="container">
 
-        <!--Navbar----------------------------------------------------->
-        <div class="row">
-            <nav class="navbar fixed-top">
-                <div class="container-fluid">
-                    <div class="col-2">
-                        <a href="./index.html"><img src="./img/logo.png" class="logo" alt=""></a>
-                    </div>
-                    <div class="col-6 search-container">
-
-
-                    </div>
-                    <div class="col-4 user-section">
-                        <i class="fas fa-user sign-icon" title="sign in/sign up"></i>
-
-                        <!-- <i class="fas fa-user user-icon" title="user-profile"></i> -->
-                        <i class="fas fa-shopping-cart cart-icon" title="your cart"></i>
-                    </div>
-                </div>
-            </nav>
-        </div>
+        <!--Navbar mới----------------------------------------------------->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="./index.html">
+                    <img src="./img/logo.png" alt="" width="250" height="" class="d-inline-block align-text-top">
+                  </a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fas fa-bars bars-icon"></i>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                  <li class="nav-item">
+                    <a class="nav-link active" id="dangNhap" aria-current="page" href="./sign_in.html">Đăng nhập</a>
+                  </li>                  
+                </ul>
+               
+              
+              </div>
+            </div>
+          </nav>
+    
 
 
 
@@ -46,7 +47,7 @@
         <!--Body trang chủ----------------------------------------------------->
 
         <div class="row home-body1">
-            <div class="col-6 cart-container">
+            <div class="col-lg-4 col-md-6 col-sm-8 cart-container">
                 <h2 class="cart-title">GIỎ HÀNG</h2>
                 <div id="cart-notice">
                     <p>Tình trạng: đang bảo trì</p>
@@ -146,19 +147,6 @@
 <script>
 
 
-    var signInPage = $('.sign-icon')
-    signInPage.click(function () {
-        window.location.href = 'sign_in.html'
-    })
-
-    var signInPage = $('.user-icon')
-    signInPage.click(function () {
-        window.location.href = 'user_profile.html'
-    })
-
-    $('.cart-icon').click(function(){
-        window.location.href = 'cart.html'
-    })
 
     //  ----------------------------------------------------------------------------------
 
@@ -188,6 +176,15 @@
     document.getElementById("cart-container").innerHTML = "EXPIRED";
     }
     }, 0);
+
+
+
+
+
+    
+
+
+
 
 
 

@@ -18,53 +18,51 @@
 
 <body>
     <div class="container">
-
-       <!--Navbar mới----------------------------------------------------->
-       <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="./index.html">
-                <img src="./img/logo.png" alt="" width="250" height="" class="d-inline-block align-text-top">
-              </a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <i class="fas fa-bars bars-icon"></i>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      Danh mục
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                      <li><a class="dropdown-item" href="#">Action</a></li>
-                    </ul>
-                  </li>
-
-                  <li class="nav-item">
-                    <a class="nav-link" id="gioHang" href="./cart.html">Giỏ hàng</a>
-                  </li>
+ <!--Navbar mới----------------------------------------------------->
+ <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="./index.html">
+            <img src="./img/logo.png" alt="" width="250" height="" class="d-inline-block align-text-top">
+          </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars bars-icon"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Danh mục
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="#">Action</a></li>
+                </ul>
+              </li>
               <li class="nav-item">
-                <a class="nav-link active" id="dangNhap" aria-current="page" href="./sign_in.html">Đăng nhập</a>
+                <a class="nav-link" id="gioHang" href="./cart.html">Giỏ hàng</a>
               </li>
               
-              
-            </ul>
-            <form class="d-flex" id="form-search" action="" autocomplete="off">
-              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="search-input" name="foodName" spellcheck="false">
-              <button class="btn btn-outline-success" id="search-button" type="submit">
-                <i class="fas fa-search"></i>
-              </button>
-            </form>
-          
-          </div>
-        </div>
-      </nav>
+          <li class="nav-item">
+            <a class="nav-link active" id="dangNhap" aria-current="page" href="./sign_in.html">Đăng nhập</a>
+          </li>
+         
+        </ul>
+        <form class="d-flex" id="form-search" action="" autocomplete="off">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="search-input" name="foodName" spellcheck="false">
+          <button class="btn btn-outline-success" id="search-button" type="submit">
+            <i class="fas fa-search"></i>
+          </button>
+        </form>
+      
+      </div>
+    </div>
+  </nav>
+
 
 
 
         <!--Category----------------------------------------------------->
 
         <div class="row fixed-top">
-            
             <div class="col-12 category-container">
                 <ul id="category">
                 </ul>
@@ -77,10 +75,18 @@
         <!--Body trang chủ----------------------------------------------------->
 
         <div class="row home-body">
-            <div class="col-12 title-container">
-                <p class="body-title">MÓN PHỔ BIẾN</p>
-            </div>
             <div class="row" id="card-container">
+                <div class="col-6">
+                    <img src="./img/1.png" alt="">
+                </div>
+                <div class="col-6">
+                    <div class="card-body">
+                     <h5 class="card-title">Bún</h5>
+                     <p class="card-des">fewfewfewfffffffffffffewfe fwềw ewf ưề</p>
+                       
+                         <p class="card-price">12000</p>
+                        </div>
+                </div>
             </div>
         </div>
 
@@ -176,7 +182,6 @@
 <script>
 
 
-
     // Tạo danh mục ----------------------------------------------------------
 
     $.getJSON('https://freeapi.code4func.com/api/v1/cate/list', function (data) {
@@ -194,26 +199,24 @@
     // Hứng param bên trang Index---------------------------------------------
 
     var params = new window.URLSearchParams(window.location.search);
-    $.getJSON('https://freeapi.code4func.com/api/v1/cate/food/' + params.get('cateId') + '/0/1000', function (data) {
+    $.getJSON('https://freeapi.code4func.com/api/v1/food/detail/' + params.get('foodId'), function (data) {
 
-        var category_card = '';
-        var title='';
-        title += `<p class="body-title">${data.data[i].cateName}</p>`
-        for (i = 0; i < data.data.length; i++) {
-           
-            category_card += ` <div class="col-3 card-margin">
-                        <div class="card">
-                            <img src=${data.data[i].images[0].imageUrl} class="card-img-top">
-                            <div class="card-body">
-                                <h5 class="card-title">${data.data[i].foodName}</h5>
-                                <p class="card-des">${data.data[i].description}</p>
-                                <a class="cart-detail" href="detail.html?foodId=${data.data[i].foodId}">Chi tiết</a>
+        var category_card = ` <div class="col-6">
+                          <img class="img-detail" src=${data.data.images[0].imageUrl}>
                             </div>
-                            <p class="card-price">${'Giá:  ' + data.data[i].price}</p>
+                            <div class="col-6">
+                        <div>
+                           
+                            <div class="card-body">
+                                <h1 class="card-title">${data.data.foodName}</h1>
+                                <p class="card-des-detail">${data.data.description}</p>
+                                <p class="card-price-detail">${'Giá:  ' + data.data.price}</p>
+                            </div>
+                           
                         </div>
                      </div>`
-        }
-       $('.title-container').html(title)
+        
+    
         $('#card-container').html(category_card);
     })
 
@@ -245,29 +248,30 @@
 
     // Tạo card trang chủ ---------------------------------------------------
 
-    $.getJSON('https://freeapi.code4func.com/api/v1/food/list/0/12', function (data) {
-        var card = '';
-        for (i = 0; i < data.data.length; i++) {
-            card += ` <div class="col-3 card-margin">
-                        <div class="card">
-                            <img src=${data.data[i].images[0].imageUrl} class="card-img-top">
-                            <div class="card-body">
-                                <h5 class="card-title">${data.data[i].foodName}</h5>
-                                <p class="card-des">${data.data[i].description}</p>
-                            </div>
-                            <p class="card-price">${'Giá:  ' + data.data[i].price}</p>
-                        </div>
-                     </div>`
-        }
-        $('#card-container').html(card);
+    // $.getJSON('https://freeapi.code4func.com/api/v1/food/list/0/12', function (data) {
+    //     var card = '';
+    //     for (i = 0; i < data.data.length; i++) {
+    //         card += ` <div class="col-3 card-margin">
+    //                     <div class="card">
+    //                         <img src=${data.data[i].images[0].imageUrl} class="card-img-top">
+    //                         <div class="card-body">
+    //                             <h5 class="card-title">${data.data[i].foodName}</h5>
+    //                             <p class="card-des">${data.data[i].description}</p>
+    //                         </div>
+    //                         <p class="card-price">${'Giá:  ' + data.data[i].price}</p>
+    //                     </div>
+    //                  </div>`
+    //     }
+    //     $('#card-container').html(card);
 
-    });
-
-
+    // });
 
 
 
- // Tìm kiếm ----------------------------------------------------------------------------------
+
+
+
+     // Tìm kiếm ----------------------------------------------------------------------------------
 
 
     //Hàm ajax post --------------
@@ -346,12 +350,6 @@
 
         }
     })
-
-
-
-
-
-
 
 
 
