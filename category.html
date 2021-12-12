@@ -30,6 +30,9 @@
           </button>
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link"  href="./index.html">Trang chủ</a>
+                </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                       Danh mục
@@ -77,9 +80,9 @@
         <!--Body trang chủ----------------------------------------------------->
 
         <div class="row home-body">
-            <div class="col-12 title-container">
+            <!-- <div class="col-12 title-container">
                 <p class="body-title">MÓN PHỔ BIẾN</p>
-            </div>
+            </div> -->
             <div class="row" id="card-container">
             </div>
         </div>
@@ -175,6 +178,13 @@
 
 <script>
 
+ // Thay tên đăng nhập--------------------------------------------------
+
+ var userName = localStorage.getItem("userName");
+    console.log(userName)
+    $('#dangNhap').html(userName)
+
+
 
 
     // Tạo danh mục ----------------------------------------------------------
@@ -197,23 +207,25 @@
     $.getJSON('https://freeapi.code4func.com/api/v1/cate/food/' + params.get('cateId') + '/0/1000', function (data) {
 
         var category_card = '';
-        var title='';
-        title += `<p class="body-title">${data.data[i].cateName}</p>`
+        // var title='';
+        // title += `<p class="body-title">${data.data[i].cateName}</p>`
         for (i = 0; i < data.data.length; i++) {
            
-            category_card += ` <div class="col-3 card-margin">
+            category_card += ` <div class="card-margin col-lg-3 col-md-4 col-md-2">
                         <div class="card">
                             <img src=${data.data[i].images[0].imageUrl} class="card-img-top">
                             <div class="card-body">
                                 <h5 class="card-title">${data.data[i].foodName}</h5>
                                 <p class="card-des">${data.data[i].description}</p>
-                                <a class="cart-detail" href="detail.html?foodId=${data.data[i].foodId}">Chi tiết</a>
+                                <a class="card-detail" href="detail.html?foodId=${data.data[i].foodId}">Chi tiết</a>
+                                <a class="add-to-cart" href="cart.html?foodId=${data.data[i].foodId}">Thêm vào giỏ hàng</a>
+
                             </div>
                             <p class="card-price">${'Giá:  ' + data.data[i].price}</p>
                         </div>
                      </div>`
         }
-       $('.title-container').html(title)
+    //    $('.title-container').html(title)
         $('#card-container').html(category_card);
     })
 
@@ -233,11 +245,6 @@
 
 
 
-    // Chuyển trang đăng nhập---------------------------------------------
-    var signInPage = $('.sign-icon')
-    signInPage.click(function () {
-        window.location.href = 'sign_in.html'
-    })
 
 
 
@@ -254,6 +261,10 @@
                             <div class="card-body">
                                 <h5 class="card-title">${data.data[i].foodName}</h5>
                                 <p class="card-des">${data.data[i].description}</p>
+                                <a class="card-detail" href="detail.html?foodId=${data.data[i].foodId}">Chi tiết</a>
+                                <a class="add-to-cart" href="cart.html?foodId=${data.data[i].foodId}">Thêm vào giỏ hàng</a>
+
+
                             </div>
                             <p class="card-price">${'Giá:  ' + data.data[i].price}</p>
                         </div>
@@ -289,7 +300,10 @@
                             <div class="card-body">
                                 <h5 class="card-title">${response.data[i].foodName}</h5>
                                 <p class="card-des">${response.data[i].description}</p>
-                                <a class="cart-detail" href="detail.html?foodId=${response.data[i].foodId}">Chi tiết</a>
+                                <a class="card-detail" href="detail.html?foodId=${response.data[i].foodId}">Chi tiết</a>
+                                <a class="add-to-cart" href="cart.html?foodId=${response.data[i].foodId}">Thêm vào giỏ hàng</a>
+
+
                             </div>
                             <p class="card-price">${'Giá:  ' + response.data[i].price}</p>
                         </div>

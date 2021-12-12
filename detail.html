@@ -29,6 +29,9 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+                <a class="nav-link"  href="./index.html">Trang chủ</a>
+            </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                   Danh mục
@@ -181,6 +184,14 @@
 
 <script>
 
+     // Thay tên đăng nhập--------------------------------------------------
+
+     var userName = localStorage.getItem("userName");
+    console.log(userName)
+    $('#dangNhap').html(userName)
+
+
+
 
     // Tạo danh mục ----------------------------------------------------------
 
@@ -200,11 +211,12 @@
 
     var params = new window.URLSearchParams(window.location.search);
     $.getJSON('https://freeapi.code4func.com/api/v1/food/detail/' + params.get('foodId'), function (data) {
+      
 
-        var category_card = ` <div class="col-6">
+        var category_card = ` <div class="col-lg-6 col-sm-10">
                           <img class="img-detail" src=${data.data.images[0].imageUrl}>
                             </div>
-                            <div class="col-6">
+                            <div class="col-lg-6 col-sm-10">
                         <div>
                            
                             <div class="card-body">
@@ -293,7 +305,10 @@
                             <div class="card-body">
                                 <h5 class="card-title">${response.data[i].foodName}</h5>
                                 <p class="card-des">${response.data[i].description}</p>
-                                <a class="cart-detail" href="detail.html?foodId=${response.data[i].foodId}">Chi tiết</a>
+                                <a class="card-detail" href="detail.html?foodId=${response.data[i].foodId}">Chi tiết</a>
+                                <a class="add-to-cart" href="cart.html?foodId=${response.data[i].foodId}">Thêm vào giỏ hàng</a>
+
+
                             </div>
                             <p class="card-price">${'Giá:  ' + response.data[i].price}</p>
                         </div>

@@ -163,7 +163,7 @@ body {
 
 .card {
     background-color: rgb(24, 24, 24);
-    min-height: 450px;
+    min-height: 490px;
 }
 
 .card-img-top {
@@ -359,10 +359,40 @@ body {
     /* text-align: center; */
 }
 
+.cart-total {
+    color: white;
+    /* display: inline-block; */
+    font-size: 1.5rem;
+}
+
+.cart-title {
+    color: rgb(79, 185, 255);
+    /* display: inline-block; */
+    font-size: 1.5rem;
+}
+
+.add-to-cart {
+    text-decoration: none;
+    color: #79f6ff;
+    display: inline-block;
+    text-align: right;
+}
+
+.cart-table {
+    color: white;
+}
 
 /* Chi tiết sản phẩm -------------------------------------------------------------------*/
 
-.cart-detail {
+.card-detail {
     text-decoration: none;
-    color: rgb(79, 185, 255);
+    color: rgb(79, 255, 152);
+    /* margin-right: auto; */
+    display: block;
+}
+
+.add-to-cart:hover, .card-detail:hover {
+    /* color: unset !important; */
+    opacity: 80% !important;
+    transition: ease-in-out 0.15s;
 }

@@ -30,6 +30,9 @@
               </button>
               <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link"  href="./index.html">Trang chủ</a>
+                    </li>
                   <li class="nav-item">
                     <a class="nav-link" id="gioHang" href="./cart.html">Giỏ hàng</a>
                   </li>
@@ -50,18 +53,18 @@
         <div class="row home-body1">
             <div class="col-lg-4 col-md-6 col-sm-8 user-profile">
                 <main class="form-signin">
-                    <form id="submit-signin">
+                    <form id="submit-signin" class="needs-validation">
                         <h1 class="h3 mb-3 fw-normal signin-title">Đăng nhập</h1>
 
 
                         <div class="form-floating">
-                            <input type="email" class="form-control" id="floatingEmail" name="email" placeholder="123">
+                            <input  type="email" class="form-control" id="floatingEmail" name="email" placeholder="123" required >
                             <label for="floatingEmail">Email</label>
                         </div>
 
                         <div class="form-floating">
                             <input type="password" class="form-control" id="floatingPassword" name="password"
-                                placeholder="123">
+                                placeholder="123" required>
                             <label for="floatingPassword">Mật khẩu</label>
                         </div>
                         <span id="my-message"></span>
@@ -69,7 +72,10 @@
 
 
                         <button class="w-100 btn btn-lg btn-primary" type="submit">Đăng nhập</button>
-                        <a href="sign_up.html" class="mt-5 mb-3 text-muted">Đăng ký</a>
+                        
+                        <a href="sign_up.html" class="mt-5 mb-3 text-muted log-in">Đăng ký</a>
+                        <a href="index.html" class="mt-5 mb-3 text-muted log-out">Đăng xuất</a>
+
                     </form>
                 </main>
             </div>
@@ -169,12 +175,21 @@
 <script>
 
 
-    // Đăng ký ----------------------------------------------------------------------------------
+    // Đăng nhập ----------------------------------------------------------------------------------
 
     //Tắt cái submit
     $(function () {
         $('#submit-signin').attr('onsubmit', 'return false');
     });
+
+
+     // Đăng xuất ----------------------------------------
+     $('.log-out').click(function(){
+            console.log('xong')
+            localStorage.setItem('userName', "Đăng nhập")
+
+        })
+
 
 
 
@@ -210,8 +225,10 @@
                     $('#my-message').html('');
                     var token = response.data.token;
                     console.log(token)
-                    // localStorage.setItem("token", token) 
+                    localStorage.setItem("userName", "User: " + response.data.fullName) 
+                    localStorage.setItem('token', token)
                     $('.home-body1').html(''); // Xoá trang đăng nhập
+                    
                     userProfile(token); // Chạy hàm lấy profile
                 },
 
@@ -222,6 +239,11 @@
                 }
             })
         }
+
+
+       
+
+
 
 
         // Hàm lấy user profile ----------------------

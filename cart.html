@@ -30,6 +30,9 @@
               </button>
               <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link"  href="./index.html">Trang chủ</a>
+                    </li>
                   <li class="nav-item">
                     <a class="nav-link active" id="dangNhap" aria-current="page" href="./sign_in.html">Đăng nhập</a>
                   </li>                  
@@ -46,17 +49,14 @@
 
         <!--Body trang chủ----------------------------------------------------->
 
-        <div class="row home-body1">
-            <div class="col-lg-4 col-md-6 col-sm-8 cart-container">
-                <h2 class="cart-title">GIỎ HÀNG</h2>
-                <div id="cart-notice">
-                    <p>Tình trạng: đang bảo trì</p>
-                   <span>Thời gian bảo trì dự kiến: </span> <span id="cart-container"></span>
-                </div>
+        <div class="row home-body">
+            <div class="col-12 title-container">
+                <span class="cart-title">Tổng sản phẩm trong giỏ hàng: </span> <span class="cart-total">0</span>
+            </div>
+            <div class="row" id="card-container">
+
             </div>
         </div>
-
-
 
 
     </div>
@@ -146,42 +146,94 @@
 
 <script>
 
+// Thay tên đăng nhập--------------------------------------------------
+var userName = localStorage.getItem("userName");
+    console.log(userName)
+    $('#dangNhap').html(userName)
+
 
 
     //  ----------------------------------------------------------------------------------
 
 
-    var countDownDate = new Date("Jan 5, 2023 15:37:25").getTime();
-    var x = setInterval(function() {
+    // var countDownDate = new Date("Jan 5, 2023 15:37:25").getTime();
+    // var x = setInterval(function() {
 
-    // Get today's date and time
-    var now = new Date().getTime();
+    // // Get today's date and time
+    // var now = new Date().getTime();
 
-    // Find the distance between now and the count down date
-    var distance = countDownDate - now;
+    // // Find the distance between now and the count down date
+    // var distance = countDownDate - now;
 
-    // Time calculations for days, hours, minutes and seconds
-    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    // // Time calculations for days, hours, minutes and seconds
+    // var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    // var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    // var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    // var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-    // Display the result in the element with id="demo"
-    document.getElementById("cart-container").innerHTML = days + " ngày- " + hours + " giờ- "
-    + minutes + " phút- " + seconds + " giây ";
+    // // Display the result in the element with id="demo"
+    // document.getElementById("cart-container").innerHTML = days + " ngày- " + hours + " giờ- "
+    // + minutes + " phút- " + seconds + " giây ";
 
-    // If the count down is finished, write some text
-    if (distance < 0) {
-    clearInterval(x);
-    document.getElementById("cart-container").innerHTML = "EXPIRED";
-    }
-    }, 0);
+    // // If the count down is finished, write some text
+    // if (distance < 0) {
+    // clearInterval(x);
+    // document.getElementById("cart-container").innerHTML = "EXPIRED";
+    // }
+    // }, 0);
+
+        var token = localStorage.getItem("token")
+        console.log(token)
 
 
 
+    // Hứng param khi thêm vào giỏ hàng---------------------------------------------
+
+    var params = new window.URLSearchParams(window.location.search);
+    var foodId = params.get('foodId')
+    $.ajax({
+                url: 'https://freeapi.code4func.com/api/v1/order/add-to-cart',
+                type: 'post',
+                headers: {
+                    'authorization': `Bearer ${token}`,
+                    'accept': 'application/json',
+                    'content-type': 'application/json',
+                },
+                crossDomain: true,
+                data: `{
+                    "foodId" : "${foodId}"
+                }`,
+                async: false,
+
+                success: function (response) {
+                    console.log("Thêm vào giỏ hàng thành công!")
+                    console.log(response)    
+
+                    var card = ` <div class="card-margin col-lg-3 col-md-4 col-md-2">
+                        <div class="card">
+                            <img src=${response.data.images[0].imageUrl} class="card-img-top">
+                            <div class="card-body">
+                                <h5 class="card-title">${response.data.foodName}</h5>
+                                <p class="card-des">${response.data.description}</p>
+                                <a class="card-detail" href="detail.html?foodId=${response.data.foodId}">Chi tiết</a>
+                                <a class="add-to-cart" href="cart.html?foodId=${response.data.foodId}">Thêm vào giỏ hàng</a>
+                            </div>
+                            <p class="card-price">${'Giá:  ' + response.data.price}</p>
+                        </div>
+                     </div>`
+                
+
+                $('#card-container').html(card);
+                },
+
+                error: function (response) {
+                    console.log(response.responseJSON);
+                    $('#my-message').html(response.responseJSON.message);
+
+                }
+            })
 
 
-    
 
 
 
