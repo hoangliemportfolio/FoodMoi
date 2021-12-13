@@ -200,6 +200,14 @@ body {
     display: -webkit-box;
 }
 
+.card-des-cart {
+  
+    color: rgb(180, 180, 180);
+    font-size: 1rem;
+    margin: auto auto 15px auto;  
+
+}
+
 .card-des-detail {
   
     color: rgb(180, 180, 180);
@@ -207,6 +215,11 @@ body {
 }
 
 .card-price {
+    color: rgb(219, 213, 118);
+    margin: auto auto 15px auto;  
+}
+
+.card-price-cart {
     color: rgb(219, 213, 118);
     margin: auto auto 15px auto;  
 }
@@ -376,11 +389,76 @@ body {
     color: #79f6ff;
     display: inline-block;
     text-align: right;
+    cursor: pointer;
+
+}
+
+.delete-from-cart {
+    text-decoration: none;
+    color: #79f6ff;
+    display: inline-block;
+    text-align: right;
+    cursor: pointer;
 }
 
 .cart-table {
     color: white;
 }
+
+.buy {
+    color: rgb(255, 255, 255);
+    background-color: rgb(54, 122, 88);
+    text-align: center;
+    cursor: pointer;
+    width: 50%;
+    margin: 0 auto 25px auto;
+    border-radius: 5px;
+}
+
+.buy:hover {
+    opacity: 80%;
+}
+
+.confirm-button {
+    width: 100%;
+    background-color: rgb(52, 108, 110);
+    border-radius: 9px;
+    padding: 9px 30px;
+    color: white;
+    text-align: center;
+    cursor: pointer;
+    display: block;
+    text-transform: uppercase;
+}
+
+.confirm-button:hover {
+    opacity: 80%;
+    transition: ease-in-out 0.15s;
+}
+
+
+
+.order {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    /* border-top:1px solid rgb(73, 73, 73) ; */
+    border-bottom:1px solid rgb(73, 73, 73) ;
+    padding: 15px 0;
+}
+
+
+.detail-order {
+    color: white;
+    margin-left: 50px;
+}
+
+
+
+
+
+
 
 /* Chi tiết sản phẩm -------------------------------------------------------------------*/
 
@@ -389,10 +467,13 @@ body {
     color: rgb(79, 255, 152);
     /* margin-right: auto; */
     display: block;
+    cursor: pointer;
+
 }
 
-.add-to-cart:hover, .card-detail:hover {
+.add-to-cart:hover, .card-detail:hover, .delete-from-cart:hover {
     /* color: unset !important; */
     opacity: 80% !important;
     transition: ease-in-out 0.15s;
 }
+

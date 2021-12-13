@@ -24,25 +24,28 @@
             <div class="container-fluid">
                 <a class="navbar-brand" href="./index.html">
                     <img src="./img/logo.png" alt="" width="250" height="" class="d-inline-block align-text-top">
-                  </a>
-              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <i class="fas fa-bars bars-icon"></i>
-              </button>
-              <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link"  href="./index.html">Trang chủ</a>
-                    </li>
-                  <li class="nav-item">
-                    <a class="nav-link active" id="dangNhap" aria-current="page" href="./sign_in.html">Đăng nhập</a>
-                  </li>                  
-                </ul>
-               
-              
-              </div>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fas fa-bars bars-icon"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="./index.html">Trang chủ</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" id="dangNhap" aria-current="page" href="./sign_in.html">Đăng
+                                nhập</a>
+                        </li>
+                    </ul>
+
+
+                </div>
             </div>
-          </nav>
-    
+        </nav>
+
 
 
 
@@ -54,6 +57,34 @@
                 <span class="cart-title">Tổng sản phẩm trong giỏ hàng: </span> <span class="cart-total">0</span>
             </div>
             <div class="row" id="card-container">
+
+            </div>
+            <div class="col-12">
+                <p class="confirm-button">Chốt đơn</p>
+            </div>
+        </div>
+
+
+        <!--Xác nhận đơn hàng-------------------------->
+
+        <div class="row home-body">
+            <div class="col-12 title-container">
+                <span class="cart-title">Đơn hàng đã chốt của quý vị:</span>
+            </div>
+
+            <div class="row" id="order-list-container">
+
+            </div>
+        </div>
+
+
+
+        <div class="row home-body">
+
+            <div class="col-12 title-container">
+                <span class="cart-title">Chi tiết đơn hàng:</span><span class="detail-order">0</span>
+            </div>
+            <div class="row" id="confirm-card-container">
 
             </div>
         </div>
@@ -146,92 +177,298 @@
 
 <script>
 
-// Thay tên đăng nhập--------------------------------------------------
-var userName = localStorage.getItem("userName");
+    // Thay tên đăng nhập--------------------------------------------------
+    var userName = localStorage.getItem("userName");
     console.log(userName)
     $('#dangNhap').html(userName)
 
 
 
-    //  ----------------------------------------------------------------------------------
-
-
-    // var countDownDate = new Date("Jan 5, 2023 15:37:25").getTime();
-    // var x = setInterval(function() {
-
-    // // Get today's date and time
-    // var now = new Date().getTime();
-
-    // // Find the distance between now and the count down date
-    // var distance = countDownDate - now;
-
-    // // Time calculations for days, hours, minutes and seconds
-    // var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    // var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    // var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    // var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-    // // Display the result in the element with id="demo"
-    // document.getElementById("cart-container").innerHTML = days + " ngày- " + hours + " giờ- "
-    // + minutes + " phút- " + seconds + " giây ";
-
-    // // If the count down is finished, write some text
-    // if (distance < 0) {
-    // clearInterval(x);
-    // document.getElementById("cart-container").innerHTML = "EXPIRED";
-    // }
-    // }, 0);
-
-        var token = localStorage.getItem("token")
-        console.log(token)
 
 
 
-    // Hứng param khi thêm vào giỏ hàng---------------------------------------------
 
-    var params = new window.URLSearchParams(window.location.search);
-    var foodId = params.get('foodId')
+    // Tổng sản phẩm giỏ hàng---------------------------------------------
+
+    var token = localStorage.getItem("token");
+    console.log(token)
+
     $.ajax({
-                url: 'https://freeapi.code4func.com/api/v1/order/add-to-cart',
-                type: 'post',
+        url: 'https://freeapi.code4func.com/api/v1/order/count/shopping-cart',
+        type: 'get',
+        headers: {
+            'authorization': `Bearer ${token}`,
+            'accept': 'application/json',
+            'content-type': 'application/json',
+        },
+        crossDomain: true,
+        async: false,
+
+        success: function (response) {
+            console.log("ok!")
+            console.log(response)
+
+
+            $('.cart-total').html(response.data.total);
+        },
+
+        error: function (response) {
+            console.log(response.responseJSON);
+            $('#my-message').html(response.responseJSON.message);
+
+        }
+    })
+
+
+
+    // Load sản phẩm giỏ hàng---------------------------
+
+
+    $.ajax({
+        url: 'https://freeapi.code4func.com/api/v1/order/shopping-cart',
+        type: 'get',
+        headers: {
+            'authorization': `Bearer ${token}`,
+            'accept': 'application/json',
+            'content-type': 'application/json',
+        },
+        crossDomain: true,
+        async: false,
+
+        success: function (response) {
+            console.log("ok luôn!")
+            console.log(response)
+
+            var card = '';
+            for (i = 0; i < response.data.items.length; i++) {
+
+                var price = (response.data.items[i].price) * (response.data.items[i].quantity);
+                console.log(price)
+
+
+                card += ` <div class="card-margin col-lg-3 col-md-4 col-md-2">
+                        <div class="card">
+                            <img src=${response.data.items[i].images[0].imageUrl} class="card-img-top">
+                            <div class="card-body">
+                                <h5 class="card-title">${response.data.items[i].foodName}</h5>
+                                <p class="card-des-cart">Số lượng: ${response.data.items[i].quantity}</p>
+                                <a class="card-detail" href="detail.html?foodId=${response.data.items[i].foodId}">Chi tiết</a>
+                                <a class="delete-from-cart" data-orderId=${response.data.items[i].orderId}  data-foodId=${response.data.items[i].foodId}>Xoá khỏi giỏ hàng</a>
+                               </div>
+                               <p class="card-price-cart">${'Giá:  ' + price}</p>
+        
+                        </div>
+
+                     </div>`
+                console.log("orderID của đợt hàng này: " + response.data.items[i].orderId)
+
+            }
+
+            $('#card-container').html(card);
+        },
+
+        error: function (response) {
+            console.log(response.responseJSON);
+            $('#my-message').html(response.responseJSON.message);
+
+        }
+    })
+
+
+
+
+
+    // Xoá khỏi giỏ hàng ----------------------
+
+    $('.delete-from-cart').click(function () {
+        // console.log('hehe')
+
+
+        var foodId = $(this).attr("data-foodId")
+        console.log(foodId)
+
+
+        $.ajax({
+            url: 'https://freeapi.code4func.com/api/v1/order/delete',
+            type: 'delete',
+            headers: {
+                'authorization': `Bearer ${token}`,
+                'accept': 'application/json',
+                'content-type': 'application/json',
+            },
+            crossDomain: true,
+            data: `{
+                    "foodId" : "${foodId}"
+                }`,
+            async: false,
+
+            success: function (response) {
+                console.log("Xoá thành công!")
+                console.log(response)
+                location.reload();
+            },
+
+            error: function (response) {
+                console.log(response.responseJSON);
+                $('#my-message').html(response.responseJSON.message);
+
+            }
+        })
+    })
+
+
+
+
+
+    // Xác nhận đơn hàng ------------------------------
+
+    $('.confirm-button').click(function () {
+        var orderId = $('.delete-from-cart').attr("data-orderId")
+
+
+        $.ajax({
+            url: 'https://freeapi.code4func.com/api/v1/order/confirm',
+            type: 'post',
+            headers: {
+                'authorization': `Bearer ${token}`,
+                'accept': 'application/json',
+                'content-type': 'application/json',
+            },
+            crossDomain: true,
+            data: `{
+                    "orderId" : "${orderId}",
+                    "status" : "CONFIRM"
+                }`,
+            async: false,
+
+            success: function (response) {
+                console.log("Xác nhận thành công!")
+                console.log(response)
+                orderListLoad()
+                // location.reload();
+
+
+            },
+
+            error: function (response) {
+                console.log(response.responseJSON);
+                orderListLoad()
+
+
+            }
+        })
+    })
+
+
+
+    // Load hàng đã chốt -------------------------------------------
+
+
+
+    var orderListLoad = function () {
+
+
+        $.ajax({
+            url: 'https://freeapi.code4func.com/api/v1/order/user/list',
+            type: 'get',
+            headers: {
+                'authorization': `Bearer ${token}`,
+                'accept': 'application/json',
+                'content-type': 'application/json',
+            },
+            crossDomain: true,
+            async: false,
+
+            success: function (response) {
+                console.log("Lấy danh sách thành công!")
+                console.log(response)
+
+                var orderList = '';
+                for (i = 0; i < response.data.length; i++) {
+                    orderList += `<div class="order col-12">
+                    <div class="col-4">Mã đơn hàng:</div>
+                    <div class="col-6">${response.data[i].orderId}</div>
+                    <div class="col-2"><button data-btn=${response.data[i].orderId} class="detail-order-btn">Xem chi tiết</button></div>
+                </div>`
+                }
+
+                $('#order-list-container').html(orderList);
+
+            },
+
+            error: function (response) {
+                console.log(response.responseJSON);
+                console.log('sai')
+
+
+            }
+        })
+
+
+        $('.detail-order-btn').click(function () {
+            var viewDetail = $(this).attr("data-btn")
+            console.log(viewDetail)
+
+            $.ajax({
+                url: `https://freeapi.code4func.com/api/v1/order/user/detail/${viewDetail}`,
+                type: 'get',
                 headers: {
                     'authorization': `Bearer ${token}`,
                     'accept': 'application/json',
                     'content-type': 'application/json',
                 },
                 crossDomain: true,
-                data: `{
-                    "foodId" : "${foodId}"
-                }`,
                 async: false,
 
                 success: function (response) {
-                    console.log("Thêm vào giỏ hàng thành công!")
-                    console.log(response)    
+                    console.log("Load đơn thành công!")
+                    console.log(response)
 
-                    var card = ` <div class="card-margin col-lg-3 col-md-4 col-md-2">
+
+                    var card = '';
+
+                    for (i = 0; i < response.data.items.length; i++) {
+                        var orderDetail = response.data.items[0].orderId;
+                        var price = (response.data.items[i].price) * (response.data.items[i].quantity);
+                        console.log(price)
+
+
+                        card += ` <div class="card-margin col-lg-3 col-md-4 col-md-2">
                         <div class="card">
-                            <img src=${response.data.images[0].imageUrl} class="card-img-top">
+                            <img src=${response.data.items[i].images[0].imageUrl} class="card-img-top">
                             <div class="card-body">
-                                <h5 class="card-title">${response.data.foodName}</h5>
-                                <p class="card-des">${response.data.description}</p>
-                                <a class="card-detail" href="detail.html?foodId=${response.data.foodId}">Chi tiết</a>
-                                <a class="add-to-cart" href="cart.html?foodId=${response.data.foodId}">Thêm vào giỏ hàng</a>
-                            </div>
-                            <p class="card-price">${'Giá:  ' + response.data.price}</p>
+                                <h5 class="card-title">${response.data.items[i].foodName}</h5>
+                                <p class="card-des-cart">Số lượng: ${response.data.items[i].quantity}</p>
+                                <a class="card-detail" href="detail.html?foodId=${response.data.items[i].foodId}">Chi tiết</a>
+                               </div>
+                               <p class="card-price-cart">${'Giá:  ' + price}</p>
+        
                         </div>
-                     </div>`
-                
 
-                $('#card-container').html(card);
+                     </div>`
+                    }
+
+
+                    $('#confirm-card-container').html(card);
+                    $('.detail-order').html(orderDetail)
+
                 },
 
                 error: function (response) {
                     console.log(response.responseJSON);
-                    $('#my-message').html(response.responseJSON.message);
+                    console.log('sai')
+
 
                 }
             })
+        })
+
+
+    }
+
+
+
+
 
 
 

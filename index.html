@@ -59,7 +59,7 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link"  href="./index.html">Trang chủ</a>
+                            <a class="nav-link" href="./index.html">Trang chủ</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
@@ -111,6 +111,7 @@
                 <p class="body-title">MÓN PHỔ BIẾN</p>
             </div>
             <div class="row" id="card-container">
+
             </div>
         </div>
 
@@ -271,6 +272,8 @@
     })
 
 
+    var arrayCart = [];
+
 
 
     // Tạo card trang chủ ---------------------------------------------------
@@ -285,7 +288,7 @@
                                 <h5 class="card-title">${data.data[i].foodName}</h5>
                                 <p class="card-des">${data.data[i].description}</p>
                                 <a class="card-detail" href="detail.html?foodId=${data.data[i].foodId}">Chi tiết</a>
-                                <a class="add-to-cart" href='#?foodId=${data.data[i].foodId}' data-class=${data.data[i].foodId}>Thêm vào giỏ hàng</a>
+                                <a class="add-to-cart"  data-foodId=${data.data[i].foodId}>Thêm vào giỏ hàng</a>
 
                             </div>
                             <p class="card-price">${'Giá:  ' + data.data[i].price}</p>
@@ -293,7 +296,7 @@
 
                         </div>
                      </div>`
-                     
+
 
         }
 
@@ -304,12 +307,14 @@
         // Thêm giỏ hàng ----------------------
 
         $('.add-to-cart').click(function () {
-            console.log('hehe')
+            // console.log('hehe')
             var token = localStorage.getItem("token");
             console.log(token)
 
-            var foodId = $('.add-to-cart').data( "class" )
+            var foodId = $(this).attr("data-foodId")
             console.log(foodId)
+
+
             $.ajax({
                 url: 'https://freeapi.code4func.com/api/v1/order/add-to-cart',
                 type: 'post',
@@ -366,7 +371,8 @@
                         <h5 class="card-title">${data.data[i].foodName}</h5>
                         <p class="card-des">${data.data[i].description}</p>
                         <a class="card-detail" href="detail.html?foodId=${data.data[i].foodId}">Chi tiết</a>
-                        <a class="add-to-cart" href="cart.html?foodId=${data.data[i].foodId}">Thêm vào giỏ hàng</a>
+                        <a class="add-to-cart"  data-foodId=${data.data[i].foodId}>Thêm vào giỏ hàng</a>
+
 
                     </div>
                     <p class="card-price">${'Giá:  ' + data.data[i].price}</p>
@@ -376,6 +382,47 @@
 
 
             $('#card-container').html(card);
+
+
+            // Thêm giỏ hàng ----------------------
+
+            $('.add-to-cart').click(function () {
+                // console.log('hehe')
+                var token = localStorage.getItem("token");
+                console.log(token)
+
+                var foodId = $(this).attr("data-foodId")
+                console.log(foodId)
+
+
+                $.ajax({
+                    url: 'https://freeapi.code4func.com/api/v1/order/add-to-cart',
+                    type: 'post',
+                    headers: {
+                        'authorization': `Bearer ${token}`,
+                        'accept': 'application/json',
+                        'content-type': 'application/json',
+                    },
+                    crossDomain: true,
+                    data: `{
+                    "foodId" : "${foodId}"
+                }`,
+                    async: false,
+
+                    success: function (response) {
+                        console.log("Thêm vào giỏ hàng thành công!")
+                        console.log(response)
+                    },
+
+                    error: function (response) {
+                        console.log(response.responseJSON);
+                        $('#my-message').html(response.responseJSON.message);
+
+                    }
+                })
+            })
+
+
         });
     }
 
@@ -496,7 +543,8 @@
                                 <h5 class="card-title">${response.data[i].foodName}</h5>
                                 <p class="card-des">${response.data[i].description}</p>
                                 <a class="card-detail" href="detail.html?foodId=${response.data[i].foodId}">Chi tiết</a>
-                                <a class="add-to-cart" href="cart.html?foodId=${response.data[i].foodId}">Thêm vào giỏ hàng</a>
+                                <a class="add-to-cart"  data-foodId=${response.data[i].foodId}>Thêm vào giỏ hàng</a>
+
 
                             </div>
                             <p class="card-price">${'Giá:  ' + response.data[i].price}</p>
@@ -506,6 +554,46 @@
 
                 $('#card-container').html(card);
                 $('.pagination-container').remove();
+
+
+                // Thêm giỏ hàng ----------------------
+
+                $('.add-to-cart').click(function () {
+                    // console.log('hehe')
+                    var token = localStorage.getItem("token");
+                    console.log(token)
+
+                    var foodId = $(this).attr("data-foodId")
+                    console.log(foodId)
+
+
+                    $.ajax({
+                        url: 'https://freeapi.code4func.com/api/v1/order/add-to-cart',
+                        type: 'post',
+                        headers: {
+                            'authorization': `Bearer ${token}`,
+                            'accept': 'application/json',
+                            'content-type': 'application/json',
+                        },
+                        crossDomain: true,
+                        data: `{
+                    "foodId" : "${foodId}"
+                }`,
+                        async: false,
+
+                        success: function (response) {
+                            console.log("Thêm vào giỏ hàng thành công!")
+                            console.log(response)
+                        },
+
+                        error: function (response) {
+                            console.log(response.responseJSON);
+                            $('#my-message').html(response.responseJSON.message);
+
+                        }
+                    })
+                })
+
 
 
 

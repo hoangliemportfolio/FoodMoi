@@ -218,7 +218,8 @@
                                 <h5 class="card-title">${data.data[i].foodName}</h5>
                                 <p class="card-des">${data.data[i].description}</p>
                                 <a class="card-detail" href="detail.html?foodId=${data.data[i].foodId}">Chi tiết</a>
-                                <a class="add-to-cart" href="cart.html?foodId=${data.data[i].foodId}">Thêm vào giỏ hàng</a>
+                                <a class="add-to-cart"  data-foodId=${data.data[i].foodId}>Thêm vào giỏ hàng</a>
+
 
                             </div>
                             <p class="card-price">${'Giá:  ' + data.data[i].price}</p>
@@ -227,6 +228,46 @@
         }
     //    $('.title-container').html(title)
         $('#card-container').html(category_card);
+
+
+         // Thêm giỏ hàng ----------------------
+
+        $('.add-to-cart').click(function () {
+            // console.log('hehe')
+            var token = localStorage.getItem("token");
+            console.log(token)
+
+            var foodId = $(this).attr("data-foodId") 
+            console.log(foodId)
+            
+
+            $.ajax({
+                url: 'https://freeapi.code4func.com/api/v1/order/add-to-cart',
+                type: 'post',
+                headers: {
+                    'authorization': `Bearer ${token}`,
+                    'accept': 'application/json',
+                    'content-type': 'application/json',
+                },
+                crossDomain: true,
+                data: `{
+                    "foodId" : "${foodId}"
+                }`,
+                async: false,
+
+                success: function (response) {
+                    console.log("Thêm vào giỏ hàng thành công!")
+                    console.log(response)
+                },
+
+                error: function (response) {
+                    console.log(response.responseJSON);
+                    $('#my-message').html(response.responseJSON.message);
+
+                }
+            })
+        })
+
     })
 
 
@@ -262,7 +303,8 @@
                                 <h5 class="card-title">${data.data[i].foodName}</h5>
                                 <p class="card-des">${data.data[i].description}</p>
                                 <a class="card-detail" href="detail.html?foodId=${data.data[i].foodId}">Chi tiết</a>
-                                <a class="add-to-cart" href="cart.html?foodId=${data.data[i].foodId}">Thêm vào giỏ hàng</a>
+                                <a class="add-to-cart"  data-foodId=${data.data[i].foodId}>Thêm vào giỏ hàng</a>
+
 
 
                             </div>
@@ -271,6 +313,44 @@
                      </div>`
         }
         $('#card-container').html(card);
+
+          // Thêm giỏ hàng ----------------------
+
+          $('.add-to-cart').click(function () {
+            // console.log('hehe')
+            var token = localStorage.getItem("token");
+            console.log(token)
+
+            var foodId = $(this).attr("data-foodId") 
+            console.log(foodId)
+            
+
+            $.ajax({
+                url: 'https://freeapi.code4func.com/api/v1/order/add-to-cart',
+                type: 'post',
+                headers: {
+                    'authorization': `Bearer ${token}`,
+                    'accept': 'application/json',
+                    'content-type': 'application/json',
+                },
+                crossDomain: true,
+                data: `{
+                    "foodId" : "${foodId}"
+                }`,
+                async: false,
+
+                success: function (response) {
+                    console.log("Thêm vào giỏ hàng thành công!")
+                    console.log(response)
+                },
+
+                error: function (response) {
+                    console.log(response.responseJSON);
+                    $('#my-message').html(response.responseJSON.message);
+
+                }
+            })
+        })
 
     });
 
@@ -301,7 +381,8 @@
                                 <h5 class="card-title">${response.data[i].foodName}</h5>
                                 <p class="card-des">${response.data[i].description}</p>
                                 <a class="card-detail" href="detail.html?foodId=${response.data[i].foodId}">Chi tiết</a>
-                                <a class="add-to-cart" href="cart.html?foodId=${response.data[i].foodId}">Thêm vào giỏ hàng</a>
+                                <a class="add-to-cart"  data-foodId=${response.data[i].foodId}>Thêm vào giỏ hàng</a>
+
 
 
                             </div>
@@ -312,6 +393,45 @@
 
                 $('#card-container').html(card);
                 $('.pagination-container').remove();
+
+
+                  // Thêm giỏ hàng ----------------------
+
+        $('.add-to-cart').click(function () {
+            // console.log('hehe')
+            var token = localStorage.getItem("token");
+            console.log(token)
+
+            var foodId = $(this).attr("data-foodId") 
+            console.log(foodId)
+            
+
+            $.ajax({
+                url: 'https://freeapi.code4func.com/api/v1/order/add-to-cart',
+                type: 'post',
+                headers: {
+                    'authorization': `Bearer ${token}`,
+                    'accept': 'application/json',
+                    'content-type': 'application/json',
+                },
+                crossDomain: true,
+                data: `{
+                    "foodId" : "${foodId}"
+                }`,
+                async: false,
+
+                success: function (response) {
+                    console.log("Thêm vào giỏ hàng thành công!")
+                    console.log(response)
+                },
+
+                error: function (response) {
+                    console.log(response.responseJSON);
+                    $('#my-message').html(response.responseJSON.message);
+
+                }
+            })
+        })
 
 
 
