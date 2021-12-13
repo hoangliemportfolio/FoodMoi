@@ -218,6 +218,9 @@
         </div>
     </footer>
 
+
+
+  
 </body>
 
 
@@ -292,7 +295,7 @@
                                 <h5 class="card-title">${data.data[i].foodName}</h5>
                                 <p class="card-des">${data.data[i].description}</p>
                                 <a class="card-detail" href="detail.html?foodId=${data.data[i].foodId}">Chi tiết</a>
-                                <a class="add-to-cart"  data-foodId=${data.data[i].foodId}>Thêm vào giỏ hàng</a>
+                                <a class="add-to-cart"  data-foodId=${data.data[i].foodId} >Thêm vào giỏ hàng</a>
 
                             </div>
                             <p class="card-price">${'Giá:  ' + data.data[i].price}</p>
@@ -341,6 +344,7 @@
                 error: function (response) {
                     console.log(response.responseJSON);
                     $('#my-message').html(response.responseJSON.message);
+                    alert('Đăng nhập để thêm vào giỏ hàng!')
 
                 }
             })
@@ -421,6 +425,7 @@
                     error: function (response) {
                         console.log(response.responseJSON);
                         $('#my-message').html(response.responseJSON.message);
+                        alert('Đăng nhập để thêm vào giỏ hàng!')
 
                     }
                 })
@@ -593,6 +598,7 @@
                         error: function (response) {
                             console.log(response.responseJSON);
                             $('#my-message').html(response.responseJSON.message);
+                            alert('Đăng nhập để thêm vào giỏ hàng!')
 
                         }
                     })

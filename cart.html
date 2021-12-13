@@ -223,7 +223,7 @@
 
     // Load sản phẩm giỏ hàng---------------------------
 
-
+var cartLoad = function () {
     $.ajax({
         url: 'https://freeapi.code4func.com/api/v1/order/shopping-cart',
         type: 'get',
@@ -273,9 +273,9 @@
 
         }
     })
+}
 
-
-
+cartLoad();
 
 
     // Xoá khỏi giỏ hàng ----------------------
@@ -345,9 +345,6 @@
                 console.log("Xác nhận thành công!")
                 console.log(response)
                 orderListLoad()
-                // location.reload();
-
-
             },
 
             error: function (response) {

@@ -222,6 +222,8 @@
                             <div class="card-body">
                                 <h1 class="card-title">${data.data.foodName}</h1>
                                 <p class="card-des-detail">${data.data.description}</p>
+                                <p class="card-price-detail add-to-cart" data-foodId=${data.data.foodId}>Thêm vào giỏ hàng</p>
+
                                 <p class="card-price-detail">${'Giá:  ' + data.data.price}</p>
                             </div>
                            
@@ -230,6 +232,47 @@
         
     
         $('#card-container').html(category_card);
+
+        
+  // Thêm giỏ hàng ----------------------
+
+  $('.add-to-cart').click(function () {
+                    // console.log('hehe')
+                    var token = localStorage.getItem("token");
+                    console.log(token)
+
+                    var foodId = $(this).attr("data-foodId")
+                    console.log(foodId)
+
+
+                    $.ajax({
+                        url: 'https://freeapi.code4func.com/api/v1/order/add-to-cart',
+                        type: 'post',
+                        headers: {
+                            'authorization': `Bearer ${token}`,
+                            'accept': 'application/json',
+                            'content-type': 'application/json',
+                        },
+                        crossDomain: true,
+                        data: `{
+                    "foodId" : "${foodId}"
+                }`,
+                        async: false,
+
+                        success: function (response) {
+                            console.log("Thêm vào giỏ hàng thành công!")
+                            console.log(response)
+                        },
+
+                        error: function (response) {
+                            console.log(response.responseJSON);
+                            $('#my-message').html(response.responseJSON.message);
+                            alert('Đăng nhập để thêm vào giỏ hàng!')
+
+                        }
+                    })
+                })
+
     })
 
 
@@ -245,14 +288,6 @@
 
 
 
-
-
-
-    // Chuyển trang đăng nhập---------------------------------------------
-    var signInPage = $('.sign-icon')
-    signInPage.click(function () {
-        window.location.href = 'sign_in.html'
-    })
 
 
 
