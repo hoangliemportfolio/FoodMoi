@@ -236,7 +236,11 @@
 
     var userName = localStorage.getItem("userName");
     console.log(userName)
-    $('#dangNhap').html(userName)
+    if(userName != null){
+        $('#dangNhap').html(userName)
+    } else {
+        $('#dangNhap').html('Đăng nhập')
+    }
 
 
 
