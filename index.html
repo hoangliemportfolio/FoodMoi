@@ -343,7 +343,10 @@
 
                 error: function (response) {
                     console.log(response.responseJSON);
+                    $('#dangNhap').html('Đăng nhập')
                     $('#my-message').html(response.responseJSON.message);
+                    $('#dangNhap').html('Đăng nhập')
+                    
                     alert('Đăng nhập để thêm vào giỏ hàng!')
 
                 }
@@ -425,6 +428,8 @@
                     error: function (response) {
                         console.log(response.responseJSON);
                         $('#my-message').html(response.responseJSON.message);
+                    $('#dangNhap').html('Đăng nhập')
+                        
                         alert('Đăng nhập để thêm vào giỏ hàng!')
 
                     }
@@ -598,6 +603,8 @@
                         error: function (response) {
                             console.log(response.responseJSON);
                             $('#my-message').html(response.responseJSON.message);
+                    $('#dangNhap').html('Đăng nhập')
+                            
                             alert('Đăng nhập để thêm vào giỏ hàng!')
 
                         }
