@@ -19,48 +19,66 @@
 <body>
     <div class="container">
 
-       <!--Navbar mới----------------------------------------------------->
-       <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="./index.html">
-                <img src="./img/logo.png" alt="" width="250" height="" class="d-inline-block align-text-top">
-              </a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <i class="fas fa-bars bars-icon"></i>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link"  href="./index.html">Trang chủ</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      Danh mục
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                      <li><a class="dropdown-item" href="#">Action</a></li>
-                    </ul>
-                  </li>
+           <!--Navbar mới----------------------------------------------------->
+           <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="./index.html">
+                    <img src="./img/logo.png" alt="" width="250" height="" class="d-inline-block align-text-top">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fas fa-bars bars-icon"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="./index.html">Trang chủ</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Danh mục
+                            </a>
+                            <ul class="dropdown-menu cate-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="#">Action</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link ok" id="gioHang" href="./cart.html">Giỏ hàng: <span class="quantity">0</span></a>
+                        </li>
+                        <li class="nav-item signOff">
+                            <a class="nav-link active" aria-current="page" href="./sign_in.html">Đăng nhập</a>
+                        </li>
+                        <li class="nav-item dropdown signOn">
+                            <a class="nav-link dropdown-toggle dangNhap" href="#" id="navbarDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Đăng nhập
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="./userProfile.html">Tài khoản</a></li>
+                                <li><a class="dropdown-item" href="./order.html">Đơn hàng</a></li>
+                                <li><a class="dropdown-item" href="./sign_in.html">Tài khoản khác</a></li>
+                                <li><a class="dropdown-item logOut" href="#">Đăng xuất</a></li>
+                                
 
-                  <li class="nav-item">
-                    <a class="nav-link" id="gioHang" href="./cart.html">Giỏ hàng</a>
-                  </li>
-              <li class="nav-item">
-                <a class="nav-link active" id="dangNhap" aria-current="page" href="./sign_in.html">Đăng nhập</a>
-              </li>
-              
-              
-            </ul>
-            <form class="d-flex" id="form-search" action="" autocomplete="off">
-              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="search-input" name="foodName" spellcheck="false">
-              <button class="btn btn-outline-success" id="search-button" type="submit">
-                <i class="fas fa-search"></i>
-              </button>
-            </form>
-          
-          </div>
-        </div>
-      </nav>
+                            </ul>
+                        </li>
+
+
+                    </ul>
+                    <form class="d-flex" id="form-search" action="" autocomplete="off">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
+                            id="search-input" name="foodName" spellcheck="false">
+                        <button class="btn btn-outline-success" id="search-button" type="submit">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </form>
+
+                </div>
+            </div>
+        </nav>
+
 
 
 
@@ -178,11 +196,41 @@
 
 <script>
 
- // Thay tên đăng nhập--------------------------------------------------
+  // Thay tên đăng nhập--------------------------------------------------
 
- var userName = localStorage.getItem("userName");
+  var userName = localStorage.getItem("userName");
+    var token = localStorage.getItem("token");
+
     console.log(userName)
-    $('#dangNhap').html(userName)
+    if(userName != null){
+        $('.dangNhap').html(userName)
+
+    } else {
+
+        $('.dangNhap').html('Đăng nhập');
+    }
+
+    if(token == false){
+        $('.signOff').removeClass('off')
+        $('.signOff').addClass('on')
+        $('.signOn').removeClass('on')
+        $('.signOn').addClass('off')
+    } else {
+        $('.signOn').removeClass('off')
+        $('.signOn').addClass('on')
+        $('.signOff').removeClass('on')
+        $('.signOff').addClass('off')
+    }
+
+
+     // Đăng xuất ----------------------------------------
+
+     $('.logOut').click(function(){
+        localStorage.setItem('userName', "Đăng nhập")
+            localStorage.setItem('token', "")
+            location.reload()
+
+    })
 
 
 
@@ -196,7 +244,7 @@
                              <a href='./category.html?cateId=${data.data[i].cateId}'>${data.data[i].cateName}</a>
                         </li>`
         }
-        $('.dropdown-menu').html(category);  
+        $('.cate-menu').html(category);  
     });
 
 
@@ -266,6 +314,41 @@
                     $('#dangNhap').html('Đăng nhập')
                     
                     alert('Đăng nhập để thêm vào giỏ hàng!')
+
+                }
+            })
+
+
+
+            
+               // Hiển thị số lượng giỏ hàng ----------------------------------------
+
+               $.ajax({
+                url: 'https://freeapi.code4func.com/api/v1/order/count/shopping-cart',
+                type: 'get',
+                headers: {
+                    'authorization': `Bearer ${token}`,
+                    'accept': 'application/json',
+                    'content-type': 'application/json',
+                },
+                crossDomain: true,
+                async: false,
+
+                success: function (response) {
+                    console.log("ok!")
+                    console.log(response.data.total)
+
+                if(token != null) {
+                    $('.quantity').html(response.data.total);
+                } else {
+                    $('.quantity').html(0);
+
+                }
+                },
+
+                error: function (response) {
+                    console.log(response.responseJSON);
+                    $('#my-message').html(response.responseJSON.message);
 
                 }
             })
@@ -361,6 +444,41 @@
     });
 
 
+     // Hiển thị số lượng giỏ hàng khi add ----------------------------------------
+     $.ajax({
+            url: 'https://freeapi.code4func.com/api/v1/order/count/shopping-cart',
+            type: 'get',
+            headers: {
+                'authorization': `Bearer ${token}`,
+                'accept': 'application/json',
+                'content-type': 'application/json',
+            },
+            crossDomain: true,
+            async: false,
+    
+            success: function (response) {
+                console.log("ok!")
+                console.log(response.data.total)
+    
+    
+                if(token != null) {
+                $('.quantity').html(response.data.total);
+            } else {
+                $('.quantity').html(0);
+    
+            }
+            },
+    
+            error: function (response) {
+                console.log(response.responseJSON);
+                $('#my-message').html(response.responseJSON.message);
+    
+            }
+        })
+
+
+
+
 
 
 
@@ -429,6 +547,7 @@
                 success: function (response) {
                     console.log("Thêm vào giỏ hàng thành công!")
                     console.log(response)
+                    // location.reload(true)
                 },
 
                 error: function (response) {
@@ -439,7 +558,43 @@
                     alert('Đăng nhập để thêm vào giỏ hàng!')
 
                 }
+            })  
+
+
+
+            
+               // Hiển thị số lượng giỏ hàng ----------------------------------------
+
+            $.ajax({
+                url: 'https://freeapi.code4func.com/api/v1/order/count/shopping-cart',
+                type: 'get',
+                headers: {
+                    'authorization': `Bearer ${token}`,
+                    'accept': 'application/json',
+                    'content-type': 'application/json',
+                },
+                crossDomain: true,
+                async: false,
+
+                success: function (response) {
+                    console.log("ok!")
+                    console.log(response.data.total)
+
+                if(token != null) {
+                    $('.quantity').html(response.data.total);
+                } else {
+                    $('.quantity').html(0);
+
+                }
+                },
+
+                error: function (response) {
+                    console.log(response.responseJSON);
+                    $('#my-message').html(response.responseJSON.message);
+
+                }
             })
+
         })
 
 
@@ -448,8 +603,14 @@
             error: function (response) {
                 alert("sai gòi")
             }
+            
         })
     }
+
+
+   
+
+
 
 
 

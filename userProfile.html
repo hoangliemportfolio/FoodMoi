@@ -19,8 +19,8 @@
 <body>
     <div class="container">
 
-            <!--Navbar mới----------------------------------------------------->
-            <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+             <!--Navbar mới----------------------------------------------------->
+             <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
                 <div class="container-fluid">
                     <a class="navbar-brand" href="./index.html">
                         <img src="./img/logo.png" alt="" width="250" height="" class="d-inline-block align-text-top">
@@ -35,7 +35,8 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="./index.html">Trang chủ</a>
                             </li>
-                           
+                          
+                            
                             <li class="nav-item signOff">
                                 <a class="nav-link active" aria-current="page" href="./sign_in.html">Đăng nhập</a>
                             </li>
@@ -56,32 +57,28 @@
     
     
                         </ul>
+                       
     
                     </div>
                 </div>
             </nav>
     
-
+    
 
 
 
 
         <!--Body trang chủ----------------------------------------------------->
 
-        <div class="row home-body">
-            <div class="col-12 title-container">
-                <span class="cart-title">Tổng sản phẩm trong giỏ hàng: </span> <span class="cart-total">0</span>
-            </div>
-            <div class="row" id="card-container">
-
-            </div>
-            <div class="col-12">
-                <p class="confirm-button">Chốt đơn</p>
-            </div>
+        <div class="row home-body1">
+            
+        </div>
+        <div class="row home-body2">
+            <div class="col-4" id="button-container"></div>
         </div>
 
 
-       
+
 
     </div>
     <!--div body -->
@@ -170,7 +167,7 @@
 
 <script>
 
-   
+    
      // Thay tên đăng nhập--------------------------------------------------
 
      var userName = localStorage.getItem("userName");
@@ -197,10 +194,9 @@
         $('.signOff').addClass('off')
     }
 
+// Đăng xuất ----------------------------------------
 
-    // Đăng xuất ----------------------------------------
-
-    $('.logOut').click(function(){
+$('.logOut').click(function(){
         localStorage.setItem('userName', "Đăng nhập")
             localStorage.setItem('token', "")
             location.reload()
@@ -208,284 +204,153 @@
     })
 
 
-    // Tổng sản phẩm giỏ hàng---------------------------------------------
 
-    var token = localStorage.getItem("token");
-    console.log(token)
+var token = localStorage.getItem("token");
 
-    $.ajax({
-        url: 'https://freeapi.code4func.com/api/v1/order/count/shopping-cart',
-        type: 'get',
-        headers: {
-            'authorization': `Bearer ${token}`,
-            'accept': 'application/json',
-            'content-type': 'application/json',
-        },
-        crossDomain: true,
-        async: false,
-
-        success: function (response) {
-            console.log("ok!")
-            console.log(response)
-
-
-            $('.cart-total').html(response.data.total);
-        },
-
-        error: function (response) {
-            console.log(response.responseJSON);
-            $('#my-message').html(response.responseJSON.message);
-
-        }
-    })
-
-
-
-    // Load sản phẩm giỏ hàng---------------------------
-
-var cartLoad = function () {
-    $.ajax({
-        url: 'https://freeapi.code4func.com/api/v1/order/shopping-cart',
-        type: 'get',
-        headers: {
-            'authorization': `Bearer ${token}`,
-            'accept': 'application/json',
-            'content-type': 'application/json',
-        },
-        crossDomain: true,
-        async: false,
-
-        success: function (response) {
-            console.log("ok luôn!")
-            console.log(response)
-
-            var card = '';
-            for (i = 0; i < response.data.items.length; i++) {
-
-                var price = (response.data.items[i].price) * (response.data.items[i].quantity);
-                console.log(price)
-
-
-                card += ` <div class="card-margin col-lg-3 col-md-4 col-md-2">
-                        <div class="card">
-                            <img src=${response.data.items[i].images[0].imageUrl} class="card-img-top">
-                            <div class="card-body">
-                                <h5 class="card-title">${response.data.items[i].foodName}</h5>
-                                <p class="card-des-cart">Số lượng: ${response.data.items[i].quantity}</p>
-                                <a class="card-detail" href="detail.html?foodId=${response.data.items[i].foodId}">Chi tiết</a>
-                                <a class="delete-from-cart" data-orderId=${response.data.items[i].orderId}  data-foodId=${response.data.items[i].foodId}>Xoá khỏi giỏ hàng</a>
-                               </div>
-                               <p class="card-price-cart">${'Giá:  ' + price}</p>
-        
-                        </div>
-
-                     </div>`
-                console.log("orderID của đợt hàng này: " + response.data.items[i].orderId)
-
-            }
-
-            $('#card-container').html(card);
-        },
-
-        error: function (response) {
-            console.log(response.responseJSON);
-            $('#my-message').html(response.responseJSON.message);
-
-        }
-    })
-}
-
-cartLoad();
-
-
-    // Xoá khỏi giỏ hàng ----------------------
-
-    $('.delete-from-cart').click(function () {
-        // console.log('hehe')
-
-
-        var foodId = $(this).attr("data-foodId")
-        console.log(foodId)
-
-
-        $.ajax({
-            url: 'https://freeapi.code4func.com/api/v1/order/delete',
-            type: 'delete',
-            headers: {
-                'authorization': `Bearer ${token}`,
-                'accept': 'application/json',
-                'content-type': 'application/json',
-            },
-            crossDomain: true,
-            data: `{
-                    "foodId" : "${foodId}"
-                }`,
-            async: false,
-
-            success: function (response) {
-                console.log("Xoá thành công!")
-                console.log(response)
-                location.reload();
-            },
-
-            error: function (response) {
-                console.log(response.responseJSON);
-                $('#my-message').html(response.responseJSON.message);
-
-            }
-        })
-    })
-
-
-
-
-
-    // Xác nhận đơn hàng ------------------------------
-
-    $('.confirm-button').click(function () {
-        var orderId = $('.delete-from-cart').attr("data-orderId")
-
-
-        $.ajax({
-            url: 'https://freeapi.code4func.com/api/v1/order/confirm',
-            type: 'post',
-            headers: {
-                'authorization': `Bearer ${token}`,
-                'accept': 'application/json',
-                'content-type': 'application/json',
-            },
-            crossDomain: true,
-            data: `{
-                    "orderId" : "${orderId}",
-                    "status" : "CONFIRM"
-                }`,
-            async: false,
-
-            success: function (response) {
-                console.log("Xác nhận thành công!")
-                console.log(response)
-                orderListLoad()
-                location.reload()
-                // alert('Chốt xong đơn!')
-                $('html,body').scrollTop(0);
-
-            },
-
-            error: function (response) {
-                console.log(response.responseJSON);
-                orderListLoad()
-
-
-            }
-        })
-    })
-
-
-
-    // Load hàng đã chốt -------------------------------------------
-
-
-
-    var orderListLoad = function () {
-
-
-        $.ajax({
-            url: 'https://freeapi.code4func.com/api/v1/order/user/list',
-            type: 'get',
-            headers: {
-                'authorization': `Bearer ${token}`,
-                'accept': 'application/json',
-                'content-type': 'application/json',
-            },
-            crossDomain: true,
-            async: false,
-
-            success: function (response) {
-                console.log("Lấy danh sách thành công!")
-                console.log(response)
-
-                var orderList = '';
-                for (i = 0; i < response.data.length; i++) {
-                    orderList += `<div class="order col-12">
-                    <div class="col-4">Mã đơn hàng:</div>
-                    <div class="col-6">${response.data[i].orderId}</div>
-                    <div class="col-2"><button data-btn=${response.data[i].orderId} class="detail-order-btn">Xem chi tiết</button></div>
-                </div>`
-                }
-
-                $('#order-list-container').html(orderList);
-
-            },
-
-            error: function (response) {
-                console.log(response.responseJSON);
-                console.log('sai')
-
-
-            }
-        })
-
-
-        $('.detail-order-btn').click(function () {
-            var viewDetail = $(this).attr("data-btn")
-            console.log(viewDetail)
-
+        // Hàm lấy user profile ----------------------
             $.ajax({
-                url: `https://freeapi.code4func.com/api/v1/order/user/detail/${viewDetail}`,
+                url: 'https://freeapi.code4func.com/api/v1/user/profile',
                 type: 'get',
                 headers: {
                     'authorization': `Bearer ${token}`,
                     'accept': 'application/json',
                     'content-type': 'application/json',
+                    // 'cache-control': 'no-cache'
                 },
                 crossDomain: true,
                 async: false,
-
                 success: function (response) {
-                    console.log("Load đơn thành công!")
-                    console.log(response)
+
+                    var userProfile = `
+                                <div class="col-lg-4 col-md-6 col-sm-8 user-profile">
+                                <h2 class="profile_title">USER PROFILE</h2>
+                                <p class="userId">User Id: ${response.data.userId}</p>
+                                <p class="userName">Họ và tên: ${response.data.fullName}</p>
+                                <p class="userEmail">Email: ${response.data.email}</p>
+                                <p class="userPhone">Điện thoại: ${response.data.phone}</p>
+                                <p class="userAddress">Địa chỉ: ${response.data.address}</p>
+                                <p class="userAccount">Ngày tạo tài khoản: ${response.data.createdAt}</p>
+                                </div> 
+                                `
+                    var updateButton = `
+                                <button class=" btn btn-primary my_btn" id="updateProfile" type="submit">Sửa thông tin</button>
+
+                                    `
+
+                    var updateForm = `
+                        <div class="col-lg-4 col-md-6 col-sm-8">
+                        <main class="form-signup">
+                            <form id="submit-update">
+                                <h1 class="h3 mb-3 fw-normal signin-title">Chỉnh sửa tài khoản</h1>
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="floatingName" name="fullName" placeholder="123">
+                                    <label for="floatingName">Họ và tên</label>
+                                </div>
+                                <div class="form-floating">
+                                    <input type="email" class="form-control" id="floatingEmail" name="email" placeholder="123">
+                                    <label for="floatingEmail">Email</label>
+                                </div>
+                                <div class="form-floating">
+                                    <input type="number" class="form-control" id="floatingPhone" name="phone" placeholder="123">
+                                    <label for="floatingPhone">Điện thoại</label>
+                                </div>
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="floatingAddress" name="address"
+                                        placeholder="123">
+                                    <label for="floatingAddress">Địa chỉ</label>
+                                </div>
+                                <span id="my-message"></span>
+                                <button class="w-100 btn btn-lg btn-primary my_btn" type="submit">Chỉnh sửa</button>
+                            </form>
+                        </main>
+                    </div>`
 
 
-                    var card = '';
 
-                    for (i = 0; i < response.data.items.length; i++) {
-                        var orderDetail = response.data.items[0].orderId;
-                        var price = (response.data.items[i].price) * (response.data.items[i].quantity);
-                        console.log(price)
-
-
-                        card += ` <div class="card-margin col-lg-3 col-md-4 col-md-2">
-                        <div class="card">
-                            <img src=${response.data.items[i].images[0].imageUrl} class="card-img-top">
-                            <div class="card-body">
-                                <h5 class="card-title">${response.data.items[i].foodName}</h5>
-                                <p class="card-des-cart">Số lượng: ${response.data.items[i].quantity}</p>
-                                <a class="card-detail" href="detail.html?foodId=${response.data.items[i].foodId}">Chi tiết</a>
-                               </div>
-                               <p class="card-price-cart">${'Giá:  ' + price}</p>
-        
-                        </div>
-
-                     </div>`
-                    }
+                    $('.home-body1').html(userProfile)
+                    $('#button-container').html(updateButton)
+                    $('#updateProfile').click(function () {
+                        console.log('hehe')
+                        $('.home-body1').html(updateForm)
+                        $('#button-container').html('')
 
 
-                    $('#confirm-card-container').html(card);
-                    $('.detail-order').html(orderDetail)
+                        // Put update----------------
+                        $(function () {
+                            $('#submit-update').attr('onsubmit', 'return false');
+                        });
 
+                        $('#submit-update').submit(function () {
+
+                            // Lấy input
+                            var username = $('#floatingName').val().trim();
+                            var useremail = $('#floatingEmail').val().trim();
+                            var userphone = $('#floatingPhone').val().trim();
+                            var useraddress = $('#floatingAddress').val().trim();
+
+
+                            // Console
+                            console.log("Họ và tên: " + username)
+                            console.log("Email: " + useremail)
+                            console.log("Điện thoại: " + userphone)
+                            console.log("Địa chỉ: " + useraddress)
+
+
+                            // Put
+                            if (username != '' && useremail != '' && userphone != '' && useraddress != '') {
+                                $.ajax({
+                                    url: 'https://freeapi.code4func.com/api/v1/user/profile/update',
+                                    type: 'put',
+                                    headers: {
+                                        'authorization': `Bearer ${token}`,
+                                        'accept': 'application/json',
+                                        'content-type': 'application/json',
+                                        // 'cache-control': 'no-cache'
+                                    },
+                                    data: `{
+                                        "fullName": "${username}",
+                                        "email" : "${useremail}",
+                                        "phone" : "${userphone}",
+                                        "address" : "${useraddress}"
+                                    }`,
+                                    async: false,
+                                    success: function (response) {
+                                        // alert("Tìm kiếm thành công!")
+                                        console.log(response)
+                                        // var token = response.data.token;
+                                        // localStorage.setItem("token", token) // Lưu để hồi cho thằng page bên kìa nó lấy
+                                        // console.log("Token: " + token)
+                                        $('#my-message').html(response.message)
+                                    },
+                                    error: function (response) {
+                                        console.log(response.responseJSON);
+                                        $('#my-message').html(response.responseJSON.message);
+                                    }
+                                })
+                            }
+
+                        })
+                    })
                 },
-
                 error: function (response) {
                     console.log(response.responseJSON);
-                    console.log('sai')
 
 
                 }
-            })
-        })
+            });
+        
+    
 
 
-    }
+
+
+
+
+
+
+
+
+
 
 
 

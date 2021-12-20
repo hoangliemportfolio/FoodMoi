@@ -33,9 +33,7 @@
                     <li class="nav-item">
                         <a class="nav-link"  href="./index.html">Trang chủ</a>
                     </li>
-                  <li class="nav-item">
-                    <a class="nav-link" id="gioHang" href="./cart.html">Giỏ hàng</a>
-                  </li>
+              
                   
                 </ul>
                
@@ -231,7 +229,7 @@
                     localStorage.setItem("userName", "User: " + response.data.fullName) 
                     localStorage.setItem('token', token)
                     $('.home-body1').html(''); // Xoá trang đăng nhập
-                    
+                    window.location.href = "./index.html";
                     userProfile(token); // Chạy hàm lấy profile
                 },
 
@@ -245,143 +243,6 @@
 
 
        
-
-
-
-
-        // Hàm lấy user profile ----------------------
-        function userProfile(token) {
-            $.ajax({
-                url: 'https://freeapi.code4func.com/api/v1/user/profile',
-                type: 'get',
-                headers: {
-                    'authorization': `Bearer ${token}`,
-                    'accept': 'application/json',
-                    'content-type': 'application/json',
-                    // 'cache-control': 'no-cache'
-                },
-                crossDomain: true,
-                async: false,
-                success: function (response) {
-
-                    var userProfile = `
-                                <div class="col-lg-4 col-md-6 col-sm-8 user-profile">
-                                <h2 class="profile_title">USER PROFILE</h2>
-                                <p class="userId">User Id: ${response.data.userId}</p>
-                                <p class="userName">Họ và tên: ${response.data.fullName}</p>
-                                <p class="userEmail">Email: ${response.data.email}</p>
-                                <p class="userPhone">Điện thoại: ${response.data.phone}</p>
-                                <p class="userAddress">Địa chỉ: ${response.data.address}</p>
-                                <p class="userAccount">Ngày tạo tài khoản: ${response.data.createdAt}</p>
-                                </div> 
-                                `
-                    var updateButton = `
-                                <button class=" btn btn-primary my_btn" id="updateProfile" type="submit">Sửa thông tin</button>
-
-                                    `
-
-                    var updateForm = `
-                        <div class="col-lg-4 col-md-6 col-sm-8">
-                        <main class="form-signup">
-                            <form id="submit-update">
-                                <h1 class="h3 mb-3 fw-normal signin-title">Chỉnh sửa tài khoản</h1>
-                                <div class="form-floating">
-                                    <input type="text" class="form-control" id="floatingName" name="fullName" placeholder="123">
-                                    <label for="floatingName">Họ và tên</label>
-                                </div>
-                                <div class="form-floating">
-                                    <input type="email" class="form-control" id="floatingEmail" name="email" placeholder="123">
-                                    <label for="floatingEmail">Email</label>
-                                </div>
-                                <div class="form-floating">
-                                    <input type="number" class="form-control" id="floatingPhone" name="phone" placeholder="123">
-                                    <label for="floatingPhone">Điện thoại</label>
-                                </div>
-                                <div class="form-floating">
-                                    <input type="text" class="form-control" id="floatingAddress" name="address"
-                                        placeholder="123">
-                                    <label for="floatingAddress">Địa chỉ</label>
-                                </div>
-                                <span id="my-message"></span>
-                                <button class="w-100 btn btn-lg btn-primary my_btn" type="submit">Chỉnh sửa</button>
-                            </form>
-                        </main>
-                    </div>`
-
-
-
-                    $('.home-body1').html(userProfile)
-                    $('#button-container').html(updateButton)
-                    $('#updateProfile').click(function () {
-                        console.log('hehe')
-                        $('.home-body1').html(updateForm)
-                        $('#button-container').html('')
-
-
-                        // Put update----------------
-                        $(function () {
-                            $('#submit-update').attr('onsubmit', 'return false');
-                        });
-
-                        $('#submit-update').submit(function () {
-
-                            // Lấy input
-                            var username = $('#floatingName').val().trim();
-                            var useremail = $('#floatingEmail').val().trim();
-                            var userphone = $('#floatingPhone').val().trim();
-                            var useraddress = $('#floatingAddress').val().trim();
-
-
-                            // Console
-                            console.log("Họ và tên: " + username)
-                            console.log("Email: " + useremail)
-                            console.log("Điện thoại: " + userphone)
-                            console.log("Địa chỉ: " + useraddress)
-
-
-                            // Put
-                            if (username != '' && useremail != '' && userphone != '' && useraddress != '') {
-                                $.ajax({
-                                    url: 'https://freeapi.code4func.com/api/v1/user/profile/update',
-                                    type: 'put',
-                                    headers: {
-                                        'authorization': `Bearer ${token}`,
-                                        'accept': 'application/json',
-                                        'content-type': 'application/json',
-                                        // 'cache-control': 'no-cache'
-                                    },
-                                    data: `{
-                                        "fullName": "${username}",
-                                        "email" : "${useremail}",
-                                        "phone" : "${userphone}",
-                                        "address" : "${useraddress}"
-                                    }`,
-                                    async: false,
-                                    success: function (response) {
-                                        // alert("Tìm kiếm thành công!")
-                                        console.log(response)
-                                        // var token = response.data.token;
-                                        // localStorage.setItem("token", token) // Lưu để hồi cho thằng page bên kìa nó lấy
-                                        // console.log("Token: " + token)
-                                        $('#my-message').html(response.message)
-                                    },
-                                    error: function (response) {
-                                        console.log(response.responseJSON);
-                                        $('#my-message').html(response.responseJSON.message);
-                                    }
-                                })
-                            }
-
-                        })
-                    })
-                },
-                error: function (response) {
-                    console.log(response.responseJSON);
-
-
-                }
-            });
-        }
     })
 
 

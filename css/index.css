@@ -76,6 +76,12 @@ body {
     transition: ease-in-out 0.1s;
 }
 
+
+.navbar-nav .nav-item a:hover .quantity{
+    color: rgb(128, 128, 128) !important;
+    transition: ease-in-out 0.1s;
+}
+
 .btn-outline-success {
     border-color: transparent !important;
     box-shadow: none !important;
@@ -84,6 +90,31 @@ body {
 
 .navbar.bg-light {
     margin-top: 0 !important;
+}
+
+#gioHang {
+    display: inline-block;
+}
+
+.quantity {
+    color: rgb(209, 209, 209) !important;
+
+}
+
+.signOff.on {
+    display: inline-block;
+}
+
+.signOff.off {
+    display: none;
+}
+
+.signOn.on {
+    display: inline-block;
+}
+
+.signOn.off {
+    display: none;
 }
 
 
@@ -104,11 +135,18 @@ body {
     /* text-transform: uppercase; */
     letter-spacing: 1px;
     margin: 10px 0 10px 20px;
+    padding: 0 !important;
 }
 
 .dropdown-menu {
     background-color: rgb(24, 24, 24) !important;
 }
+
+.dropdown-menu li a:hover {
+    background-color: transparent !important;
+
+}
+
 
 
 .container-fluid {

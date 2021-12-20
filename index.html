@@ -66,15 +66,29 @@
                                 data-bs-toggle="dropdown" aria-expanded="false">
                                 Danh mục
                             </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <ul class="dropdown-menu cate-menu" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="#">Action</a></li>
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="gioHang" href="#">Giỏ hàng</a>
+                            <a class="nav-link ok" id="gioHang" href="./cart.html">Giỏ hàng: <span class="quantity">0</span></a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" id="dangNhap" aria-current="page" href="#">Đăng nhập</a>
+                        <li class="nav-item signOff">
+                            <a class="nav-link active" aria-current="page" href="./sign_in.html">Đăng nhập</a>
+                        </li>
+                        <li class="nav-item dropdown signOn">
+                            <a class="nav-link dropdown-toggle dangNhap" href="#" id="navbarDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Đăng nhập
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="./userProfile.html">Tài khoản</a></li>
+                                <li><a class="dropdown-item" href="./order.html">Đơn hàng</a></li>
+                                <li><a class="dropdown-item" href="./sign_in.html">Tài khoản khác</a></li>
+                                <li><a class="dropdown-item logOut" href="#">Đăng xuất</a></li>
+                                
+
+                            </ul>
                         </li>
 
 
@@ -90,16 +104,6 @@
                 </div>
             </div>
         </nav>
-
-
-        <!--Category----------------------------------------------------->
-
-        <!-- <div class="row fixed-top">
-            <div class="col-12 category-container">
-                <ul id="category">
-                </ul>
-            </div>
-        </div> -->
 
 
 
@@ -238,17 +242,39 @@
     // Thay tên đăng nhập--------------------------------------------------
 
     var userName = localStorage.getItem("userName");
+    var token = localStorage.getItem("token");
+
     console.log(userName)
     if(userName != null){
-        $('#dangNhap').html(userName)
+        $('.dangNhap').html(userName)
+
     } else {
-        $('#dangNhap').html('Đăng nhập')
+
+        $('.dangNhap').html('Đăng nhập');
+    }
+
+    if(token == false){
+        $('.signOff').removeClass('off')
+        $('.signOff').addClass('on')
+        $('.signOn').removeClass('on')
+        $('.signOn').addClass('off')
+    } else {
+        $('.signOn').removeClass('off')
+        $('.signOn').addClass('on')
+        $('.signOff').removeClass('on')
+        $('.signOff').addClass('off')
     }
 
 
 
+    // Đăng xuất ----------------------------------------
 
+    $('.logOut').click(function(){
+        localStorage.setItem('userName', "Đăng nhập")
+            localStorage.setItem('token', "")
+            location.reload()
 
+    })
 
 
 
@@ -260,26 +286,15 @@
         var category = '';
         for (i = 0; i < 8; i++) {
             category += `<li>
-                             <a class = ""dropdown-item" href='category.html?cateId=${data.data[i].cateId}'>${data.data[i].cateName}</a>
+                             <a class = "dropdown-item" href='category.html?cateId=${data.data[i].cateId}'>${data.data[i].cateName}</a>
                         </li>`
         }
-        $('.dropdown-menu').html(category);
+        $('.cate-menu').html(category);
     });
 
 
 
 
-    // Chuyển trang đăng nhập---------------------------------------------
-    $('#dangNhap').click(function () {
-        window.location.href = 'sign_in.html'
-    })
-
-    $('#gioHang').click(function () {
-        window.location.href = 'cart.html'
-    })
-
-
-    var arrayCart = [];
 
 
 
@@ -308,6 +323,65 @@
         }
 
         $('#card-container').html(card);
+
+
+
+            // Hiển thị số lượng giỏ hàng ----------------------------------------
+
+            var token = localStorage.getItem("token");
+            console.log(token)
+
+    $.ajax({
+        url: 'https://freeapi.code4func.com/api/v1/order/count/shopping-cart',
+        type: 'get',
+        headers: {
+            'authorization': `Bearer ${token}`,
+            'accept': 'application/json',
+            'content-type': 'application/json',
+        },
+        crossDomain: true,
+        async: false,
+
+        success: function (response) {
+            console.log("ok!")
+            console.log(response.data.total)
+
+        if(token != null) {
+            $('.quantity').html(response.data.total);
+        } else {
+            $('.quantity').html(0);
+
+        }
+        },
+
+        error: function (response) {
+            console.log(response.responseJSON);
+            $('#my-message').html(response.responseJSON.message);
+
+        }
+    })
+
+
+        
+            
+        
+
+
+
+        
+    
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -351,6 +425,38 @@
 
                 }
             })
+
+            // Hiển thị số lượng giỏ hàng khi add ----------------------------------------
+        $.ajax({
+        url: 'https://freeapi.code4func.com/api/v1/order/count/shopping-cart',
+        type: 'get',
+        headers: {
+            'authorization': `Bearer ${token}`,
+            'accept': 'application/json',
+            'content-type': 'application/json',
+        },
+        crossDomain: true,
+        async: false,
+
+        success: function (response) {
+            console.log("ok!")
+            console.log(response.data.total)
+
+
+            if(token != null) {
+            $('.quantity').html(response.data.total);
+        } else {
+            $('.quantity').html(0);
+
+        }
+        },
+
+        error: function (response) {
+            console.log(response.responseJSON);
+            $('#my-message').html(response.responseJSON.message);
+
+        }
+    })
         })
 
 
@@ -434,6 +540,39 @@
 
                     }
                 })
+
+
+                 // Hiển thị số lượng giỏ hàng khi add ----------------------------------------
+        $.ajax({
+        url: 'https://freeapi.code4func.com/api/v1/order/count/shopping-cart',
+        type: 'get',
+        headers: {
+            'authorization': `Bearer ${token}`,
+            'accept': 'application/json',
+            'content-type': 'application/json',
+        },
+        crossDomain: true,
+        async: false,
+
+        success: function (response) {
+            console.log("ok!")
+            console.log(response.data.total)
+
+
+            if(token != null) {
+            $('.quantity').html(response.data.total);
+        } else {
+            $('.quantity').html(0);
+
+        }
+        },
+
+        error: function (response) {
+            console.log(response.responseJSON);
+            $('#my-message').html(response.responseJSON.message);
+
+        }
+    })
             })
 
 
@@ -609,10 +748,42 @@
 
                         }
                     })
+
+                    // Hiển thị số lượng giỏ hàng khi add ----------------------------------------
+        $.ajax({
+        url: 'https://freeapi.code4func.com/api/v1/order/count/shopping-cart',
+        type: 'get',
+        headers: {
+            'authorization': `Bearer ${token}`,
+            'accept': 'application/json',
+            'content-type': 'application/json',
+        },
+        crossDomain: true,
+        async: false,
+
+        success: function (response) {
+            console.log("ok!")
+            console.log(response.data.total)
+
+
+            if(token != null) {
+            $('.quantity').html(response.data.total);
+        } else {
+            $('.quantity').html(0);
+
+        }
+        },
+
+        error: function (response) {
+            console.log(response.responseJSON);
+            $('#my-message').html(response.responseJSON.message);
+
+        }
+    })
                 })
 
 
-
+                
 
             },
             error: function (response) {
