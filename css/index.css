@@ -226,6 +226,14 @@ body {
 
 }
 
+.card-title1 {
+    text-transform: uppercase;
+    color: rgb(117, 246, 255);
+
+    margin-bottom: 18px;
+
+}
+
 .card-des {
   
     color: rgb(180, 180, 180);
