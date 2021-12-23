@@ -371,7 +371,7 @@ body {
 }
 
 .mt-5.mb-3.text-muted {
-    margin: 40px 0 0 0 !important;
+    /* margin: 40px 0 0 0 !important; */
     display: block;
     text-decoration: none;
 }
@@ -387,6 +387,26 @@ body {
     display: block;
     margin: 10px 0;
 }
+
+.mt-5 {
+    margin-top: 14px !important;
+}
+
+.sign-up-btn, .sign-in-btn {
+    background-color: rgb(196, 196, 196);
+    padding: 6px 0;
+    width: 40%;
+    /* margin: 0 100px 0 100px !important; */
+    margin: 20px auto;
+    border-radius: 4px;
+    color: rgb(3, 3, 3) !important;
+    transition: ease-in-out 0.15s;
+}
+
+.sign-up-btn:hover, .sign-in-btn:hover {
+    background-color: rgb(255, 255, 255);
+
+} 
 
 
 
