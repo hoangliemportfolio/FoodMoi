@@ -182,7 +182,7 @@
         $('.dangNhap').html('Đăng nhập');
     }
 
-    if(token == false){
+    if(token == false || token == 'Token is expired'){
         $('.signOff').removeClass('off')
         $('.signOff').addClass('on')
         $('.signOn').removeClass('on')
