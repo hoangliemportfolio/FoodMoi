@@ -520,7 +520,10 @@ body {
     margin-left: 50px;
 }
 
-
+.detail-order-btn a{
+    text-decoration: none;
+    color: black;
+}
 
 
 

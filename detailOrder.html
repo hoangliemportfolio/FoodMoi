@@ -19,81 +19,80 @@
 <body>
     <div class="container">
 
-            <!--Navbar mới----------------------------------------------------->
-            <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-                <div class="container-fluid">
-                    <a class="navbar-brand" href="./index.html">
-                        <img src="./img/logo.png" alt="" width="250" height="" class="d-inline-block align-text-top">
-                    </a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                        <i class="fas fa-bars bars-icon"></i>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                            <li class="nav-item">
-                                <a class="nav-link" href="./index.html">Trang chủ</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link ok" id="gioHang" href="./cart.html">Giỏ hàng: <span class="quantity">0</span></a>
-                            </li>
-                            <li class="nav-item signOff">
-                                <a class="nav-link active" aria-current="page" href="./sign_in.html">Đăng nhập</a>
-                            </li>
-                            <li class="nav-item dropdown signOn">
-                                <a class="nav-link dropdown-toggle dangNhap" href="#" id="navbarDropdown" role="button"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                    Đăng nhập
-                                </a>
-                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li><a class="dropdown-item" href="./userProfile.html">Tài khoản</a></li>
-                                    <li><a class="dropdown-item" href="./order.html">Đơn hàng</a></li>
-                                    <li><a class="dropdown-item" href="./sign_in.html">Tài khoản khác</a></li>
-                                    <li><a class="dropdown-item logOut" href="#">Đăng xuất</a></li>
-                                    
-    
-                                </ul>
-                            </li>
-    
-    
-                        </ul>
-    
-                    </div>
+           <!--Navbar mới----------------------------------------------------->
+           <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="./index.html">
+                    <img src="./img/logo.png" alt="" width="250" height="" class="d-inline-block align-text-top">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fas fa-bars bars-icon"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="./index.html">Trang chủ</a>
+                        </li>
+                       
+                        <li class="nav-item">
+                            <a class="nav-link ok" id="gioHang" href="./cart.html">Giỏ hàng: <span class="quantity">0</span></a>
+                        </li>
+                        <li class="nav-item signOff">
+                            <a class="nav-link active" aria-current="page" href="./sign_in.html">Đăng nhập</a>
+                        </li>
+                        <li class="nav-item dropdown signOn">
+                            <a class="nav-link dropdown-toggle dangNhap" href="#" id="navbarDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Đăng nhập
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="./userProfile.html">Tài khoản</a></li>
+                                <li><a class="dropdown-item" href="./order.html">Đơn hàng</a></li>
+                                <li><a class="dropdown-item" href="./sign_in.html">Tài khoản khác</a></li>
+                                <li><a class="dropdown-item logOut" href="#">Đăng xuất</a></li>
+                                
+
+                            </ul>
+                        </li>
+
+
+                    </ul>
+                   
                 </div>
-            </nav>
-    
-
-
-
-
-
-        
-
-
-        <!--Xác nhận đơn hàng-------------------------->
-
-        <div class="row home-body">
-            <div class="col-12 title-container">
-                <span class="cart-title">Đơn hàng đã chốt của quý vị:</span>
             </div>
+        </nav>
 
-            <div class="row" id="order-list-container">
 
+
+
+        <!--Category----------------------------------------------------->
+
+        <div class="row fixed-top">
+            
+            <div class="col-12 category-container">
+                <ul id="category">
+                </ul>
             </div>
         </div>
 
 
 
-        <div class="row home-body">
 
+        <!--Body trang chủ----------------------------------------------------->
+
+        <div class="row home-body">
             <div class="col-12 title-container">
-                <span class="cart-title">Chi tiết đơn hàng:</span><span class="detail-order">0</span>
+                <p class="body-title">Chi tiết đơn hàng</p>
             </div>
             <div class="row" id="confirm-card-container">
 
             </div>
         </div>
+
+
+
 
 
     </div>
@@ -183,10 +182,9 @@
 
 <script>
 
-   
-     // Thay tên đăng nhập--------------------------------------------------
+  // Thay tên đăng nhập--------------------------------------------------
 
-     var userName = localStorage.getItem("userName");
+  var userName = localStorage.getItem("userName");
     var token = localStorage.getItem("token");
 
     console.log(userName)
@@ -211,9 +209,9 @@
     }
 
 
-    // Đăng xuất ----------------------------------------
+     // Đăng xuất ----------------------------------------
 
-    $('.logOut').click(function(){
+     $('.logOut').click(function(){
         localStorage.setItem('userName', "Đăng nhập")
             localStorage.setItem('token', "")
             location.reload()
@@ -221,103 +219,84 @@
     })
 
 
-   
+
+
+    var params = new window.URLSearchParams(window.location.search);
 
 
 
-  // Hiển thị số lượng giỏ hàng ----------------------------------------
+            $.ajax({
+                url: 'https://freeapi.code4func.com/api/v1/order/user/detail/' + params.get('orderId'),
+                type: 'get',
+                headers: {
+                    'authorization': `Bearer ${token}`,
+                    'accept': 'application/json',
+                    'content-type': 'application/json',
+                },
+                crossDomain: true,
+                async: false,
 
-  var token = localStorage.getItem("token");
-            console.log(token)
-
-    $.ajax({
-        url: 'https://freeapi.code4func.com/api/v1/order/count/shopping-cart',
-        type: 'get',
-        headers: {
-            'authorization': `Bearer ${token}`,
-            'accept': 'application/json',
-            'content-type': 'application/json',
-        },
-        crossDomain: true,
-        async: false,
-
-        success: function (response) {
-            console.log("ok!")
-            console.log(response.data.total)
-
-        if(token != null) {
-            $('.quantity').html(response.data.total);
-        } else {
-            $('.quantity').html(0);
-
-        }
-        },
-
-        error: function (response) {
-            console.log(response.responseJSON);
-            $('#my-message').html(response.responseJSON.message);
-
-        }
-    })
+                success: function (response) {
+                    console.log("Load đơn thành công!")
+                    console.log(response)
 
 
+                    var card = '';
+
+                    for (i = 0; i < response.data.items.length; i++) {
+                        var orderDetail = response.data.items[0].orderId;
+                        var price = (response.data.items[i].price) * (response.data.items[i].quantity);
+                        console.log(price)
 
 
-    // Load hàng đã chốt -------------------------------------------
+                        card += ` <div class="card-margin col-lg-3 col-md-4 col-md-2">
+                        <div class="card">
+                            <img src=${response.data.items[i].images[0].imageUrl} class="card-img-top">
+                            <div class="card-body">
+                                <h5 class="card-title">${response.data.items[i].foodName}</h5>
+                                <p class="card-des-cart">Số lượng: ${response.data.items[i].quantity}</p>
+                                <a class="card-detail" href="detail.html?foodId=${response.data.items[i].foodId}">Chi tiết</a>
+                               </div>
+                               <p class="card-price-cart">${'Giá:  ' + price}</p>
+        
+                        </div>
+
+                     </div>`
+                    }
 
 
+                    $('#confirm-card-container').html(card);
+                    $('.detail-order').html(orderDetail)
 
-  
+                },
 
-        $.ajax({
-            url: 'https://freeapi.code4func.com/api/v1/order/user/list',
-            type: 'get',
-            headers: {
-                'authorization': `Bearer ${token}`,
-                'accept': 'application/json',
-                'content-type': 'application/json',
-            },
-            crossDomain: true,
-            async: false,
+                error: function (response) {
+                    console.log(response.responseJSON);
+                    console.log('sai')
 
-            success: function (response) {
-                console.log("Lấy danh sách thành công!")
-                console.log(response)
 
-                var orderList = '';
-                for (i = 0; i < response.data.length; i++) {
-                    orderList += `<div class="order col-12">
-                   
-                    <div class="col-5">Mã đơn hàng: ${response.data[i].orderId}</div>
-                    <div class="col-5">Thời gian: ${response.data[i].createdAt}</div>
-                    <div class="col-2"><button class="detail-order-btn">
-                    <a href='detailOrder.html?orderId=${response.data[i].orderId}'>Xem chi tiết</a>
-                        </button></div>
-                </div>`
                 }
-
-                $('#order-list-container').html(orderList);
-
-            },
-
-            error: function (response) {
-                console.log(response.responseJSON);
-                console.log('sai')
+            })
+        
 
 
-            }
-        })
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
     
-
-
-
-
-
-
-
 
 
 
